@@ -1,5 +1,10 @@
 # Histórico de mudanças
 
+## 0.3.1 — 23/11/2026
+- `.vscode/` conferida no Windows (DT-04): JSON válidos; comandos das tarefas e das depurações rodados no PowerShell.
+- Tarefa 4 e depuração "teste rápido" passam a gravar em `data/teste-rapido/` (novo no `.gitignore`), sem substituir a partição `mes=10` do `output/` versionado (D-14).
+- Registrado DT-16: o teste rápido pela linha de comando ainda grava em `output/`.
+
 ## 0.3.0 — 23/11/2026
 - Primeira execução com as APIs reais, no Windows (Python 3.12, duckdb 2.0.0): 01/08 a 31/10/2026, 20 áreas, 44.160 linhas, 3 partições, 113 s.
 - Relatório: `success_with_warnings`, 41 de 42 verificações aprovadas; aviso em `participacao_mmgd_pct` (376 horas acima de 100% em MS, MT, PI e RO).

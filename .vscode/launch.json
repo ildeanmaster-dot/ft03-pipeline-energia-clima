@@ -17,7 +17,11 @@
       "module": "pipeline.main",
       "args": ["--inicio", "2026-10-01", "--fim", "2026-10-01", "--areas", "PA"],
       "cwd": "${workspaceFolder}",
-      "env": { "PYTHONPATH": "${workspaceFolder}/src" },
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src",
+        "RAW_DIR": "data/teste-rapido/raw",
+        "OUTPUT_DIR": "data/teste-rapido/output"
+      },
       "console": "integratedTerminal"
     },
     {

@@ -34,7 +34,7 @@ formulário e validar o README num clone limpo.
 | Orquestração e relatório (`main.py`) | Implementado e testado | `tests/test_persist_e_pipeline.py`, `tests/test_integracao_http.py` |
 | `run.sh` | Testado em Linux | Execução numa cópia limpa em 12/11/2026 (falhou só na rede bloqueada) |
 | `run.ps1` | Não testado | Escrito sem PowerShell disponível (DT-03) |
-| Configuração do VS Code (`.vscode/`) | Pasta renomeada; tarefas não conferidas no VS Code | DT-04 |
+| Configuração do VS Code (`.vscode/`) | Conferida (23/11/2026); teste rápido corrigido para gravar em `data/teste-rapido/` | DT-04: comandos das 6 tarefas e 4 depurações rodados no PowerShell; menus do VS Code a validar |
 | Dataset em `output/dataset/` | Gerado e versionado | 3 partições (ano=2026, mes=8, 9, 10), 44.160 linhas, Snappy |
 | Relatório em `output/reports/` | Gerado e versionado | `quality_report.json`: `success_with_warnings`, 41 de 42 aprovadas, 1 aviso |
 | Repositório público no GitHub | Criado (23/11/2026) | https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima |
@@ -66,4 +66,5 @@ formulário e validar o README num clone limpo.
 |---|---|---|
 | 1 | Enviar o link do repositório pelo formulário antes de 23/11/2026 08h00 | Freitas |
 | 2 | Clonar em outra pasta e seguir só o README (prova de reprodutibilidade, RNF-12) | Freitas |
-| 3 | Conferir as tarefas do VS Code (DT-04) e o `run.ps1` (DT-03) | Freitas |
+| 3 | Testar o `run.ps1` (DT-03) e evitar que o teste rápido pela linha de comando sobrescreva o `output/` versionado (DT-16) | Freitas |
+| 4 | Clicar em Run Task, F5 e Testing no VS Code para fechar a parte "a validar" do DT-04 | Freitas |

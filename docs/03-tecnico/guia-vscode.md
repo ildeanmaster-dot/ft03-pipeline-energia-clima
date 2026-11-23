@@ -1,9 +1,10 @@
 # Guia de continuidade no VS Code
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
-Passos numerados, com o resultado esperado de cada um. A configuração em `.vscode/` ainda não
-foi aberta no VS Code (DT-04): se algum passo não der o resultado esperado, anote e ajuste.
+Passos numerados, com o resultado esperado de cada um. Em 23/11/2026 os comandos das tarefas e
+das configurações de depuração foram conferidos no PowerShell do Windows (DT-04); a execução
+pelos menus do VS Code (Run Task, F5, Testing) ainda está "A validar".
 
 ## 1. Preparar (uma vez)
 | # | Ação | Resultado esperado |
@@ -25,7 +26,11 @@ foi aberta no VS Code (DT-04): se algum passo não der o resultado esperado, ano
 |---|---|---|
 | 1 | **Run Task** → `3. Rodar testes` | `43 passed` (cerca de 10 s; não usa internet) |
 | 2 | Ícone do béquer (Testing) na barra lateral | Árvore com 6 arquivos de teste; todos verdes ao rodar |
-| 3 | **Run Task** → `4. Pipeline: teste rápido (PA, 1 dia)` | Última linha: `Status final: success`; surgem `output/dataset/ano=2026/mes=10/` e `output/reports/quality_report.json` |
+| 3 | **Run Task** → `4. Pipeline: teste rápido (PA, 1 dia)` | Última linha: `Status final: success`; surgem `data/teste-rapido/output/dataset/ano=2026/mes=10/` (24 linhas) e `data/teste-rapido/output/reports/quality_report.json`. O `output/` versionado não é tocado |
+
+A tarefa 4 e a depuração "teste rápido" gravam em `data/teste-rapido/` (fora do Git) de
+propósito: o pipeline substitui a partição do mês inteiro (D-10), e rodar o teste rápido em
+`output/` trocaria a partição `mes=10` das 20 áreas por 24 linhas do PA.
 
 Se o passo 3 falhar, veja `docs/03-tecnico/operacao.md`, seção "Solução de problemas".
 
@@ -42,7 +47,7 @@ Aba **Run and Debug** (`Ctrl+Shift+D`), configurações prontas em `.vscode/laun
 | Configuração | Quando usar |
 |---|---|
 | Pipeline: período padrão (.env) | Depurar a execução completa |
-| Pipeline: teste rápido (PA, 1 dia) | Depurar com chamadas reais, em segundos |
+| Pipeline: teste rápido (PA, 1 dia) | Depurar com chamadas reais, em segundos (grava em `data/teste-rapido/`) |
 | Pipeline: sem extração (reusa data/raw) | Depurar SQL, qualidade e gravação sem chamar as APIs |
 | Testes: arquivo atual | Depurar o arquivo de teste aberto |
 

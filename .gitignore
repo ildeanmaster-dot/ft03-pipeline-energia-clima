@@ -5,6 +5,8 @@ venv/
 
 # camada bruta (reproduzível pela extração)
 data/raw/
+# saída do "teste rápido" do VS Code (não sobrescreve o output/ versionado)
+data/teste-rapido/
 
 # Python
 __pycache__/
