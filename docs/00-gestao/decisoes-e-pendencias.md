@@ -26,7 +26,7 @@ Versão 1.1 · 23/11/2026
 | P-01 | **Resolvida em 23/11/2026:** execução real no Windows, `output/` gerado. Executar o pipeline com as APIs reais e gerar `output/` | Entregas E5 e E6 | Freitas | 12/11/2026 |
 | P-02 | **Resolvida em 23/11/2026:** https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima Criar o repositório público no GitHub (conta `ildeanmaster-dot`) e definir o nome (sugestão: `ft03-pipeline-energia-clima`) | Entrega E1 | Freitas | 12/11/2026 |
 | P-03 | Receber o link do formulário de entrega | Envio | Organização do desafio | 12/11/2026 |
-| P-04 | **`.vscode/` conferida em 23/11/2026** (comandos no PowerShell; menus do VS Code a validar, DT-04). Falta o `run.ps1` (DT-03). Validar `run.ps1` e a configuração `.vscode/` no Windows | Não bloqueia a entrega (o `run.sh` atende) | Freitas | 12/11/2026 |
+| P-04 | **Resolvida em 23/11/2026:** `.vscode/` conferida (menus do VS Code a validar, DT-04) e `run.ps1` testado e corrigido (DT-03). Validar `run.ps1` e a configuração `.vscode/` no Windows | Não bloqueia a entrega (o `run.sh` atende) | Freitas | 12/11/2026 |
 | P-05 | Decidir se este desafio terá portal de acompanhamento (padrão Yottaflow). O gerador precisa da pasta `portal/` de um projeto modelo | Não bloqueia | Freitas | 12/11/2026 |
 | P-06 | **Resolvida em 23/11/2026:** versionado completo (20 áreas, 3 meses, ~1,7 MB). Decidir se o `output/` versionado terá as 20 áreas e os 3 meses ou um recorte menor | Tamanho do repositório | Freitas | 12/11/2026 |
 | P-07 | Confirmar com quem emitiu o enunciado se o PDF pode ser publicado | Não bloqueia | Freitas | 12/11/2026 |

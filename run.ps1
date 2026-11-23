@@ -3,12 +3,21 @@
 # Se o PowerShell bloquear scripts: powershell -ExecutionPolicy Bypass -File .\run.ps1
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot
-
-if (-not (Test-Path ".venv")) {
-    python -m venv .venv
-}
 $py = Join-Path $PSScriptRoot ".venv\Scripts\python.exe"
-& $py -m pip install --quiet --disable-pip-version-check -r requirements.txt
 $env:PYTHONPATH = Join-Path $PSScriptRoot "src"
-& $py -m pipeline.main @args
+
+# O PowerShell lê "PA,SP" como lista e repassaria "PA" "SP" separados: junta de novo com vírgula.
+$pipelineArgs = @(foreach ($a in $args) { if ($a -is [array]) { $a -join "," } else { $a } })
+
+# Daqui em diante só há chamadas ao Python, conferidas pelo código de saída. Com "Stop", o
+# PowerShell 5.1 encerra o script na primeira linha de log (stderr) quando a saída é redirecionada (2>&1).
+$ErrorActionPreference = "Continue"
+
+if (-not (Test-Path $py)) {
+    python -m venv .venv
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+}
+& $py -m pip install --quiet --disable-pip-version-check -r requirements.txt
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+& $py -m pipeline.main @pipelineArgs
 exit $LASTEXITCODE

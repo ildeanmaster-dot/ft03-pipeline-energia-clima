@@ -103,7 +103,18 @@ $env:PYTHONPATH = "src"; .venv\Scripts\python -m pipeline.main
 ```
 
 Opções: `./run.sh --inicio 2026-10-01 --fim 2026-10-31 --areas PA,SP` ou
-`./run.sh --skip-extract` (reaproveita `data/raw` sem chamar as APIs).
+`./run.sh --skip-extract` (reaproveita `data/raw` sem chamar as APIs). No PowerShell, as mesmas
+opções valem para `.\run.ps1`.
+
+> **Teste rápido sem alterar o `output/` versionado:** cada execução substitui a partição do mês
+> inteiro. Rodar só um dia ou só algumas áreas troca o conteúdo daquele mês em `output/`. Para
+> testar, mande a saída para outra pasta (`data/teste-rapido/` não é versionada):
+>
+> - PowerShell: `$env:OUTPUT_DIR="data/teste-rapido/output"; $env:RAW_DIR="data/teste-rapido/raw"; .\run.ps1 --inicio 2026-10-01 --fim 2026-10-01 --areas PA`
+> - Git Bash: `OUTPUT_DIR=data/teste-rapido/output RAW_DIR=data/teste-rapido/raw ./run.sh --inicio 2026-10-01 --fim 2026-10-01 --areas PA`
+>
+> Resultado esperado: `Status final: success` e o `git status` sem mudanças em `output/`. Se o
+> `output/` já foi sobrescrito, restaure com `git checkout -- output/`.
 
 Testes: `PYTHONPATH=src .venv/bin/python -m pytest`
 

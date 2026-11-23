@@ -27,6 +27,7 @@ python -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
 $env:PYTHONPATH = "src"
 .venv\Scripts\python -m pytest -q                       # 43 testes, sem internet
+$env:OUTPUT_DIR = "data/teste-rapido/output"; $env:RAW_DIR = "data/teste-rapido/raw"  # não sobrescreve output/
 .venv\Scripts\python -m pipeline.main --inicio 2026-10-01 --fim 2026-10-01 --areas PA   # teste rápido real
 .venv\Scripts\python -m pipeline.main                   # execução completa (.env)
 ```
