@@ -1,5 +1,9 @@
 # Histórico de mudanças
 
+## 0.3.3 — 23/11/2026
+- RNF-12 validado: clone do GitHub no Windows, seguindo só o README: `43 passed` e execução completa `success_with_warnings` (41 de 42), com Parquet idênticos byte a byte aos versionados (DT-02).
+- README: URL real no `git clone`, comando de testes para Windows e Linux, Python testado no Windows.
+
 ## 0.3.2 — 23/11/2026
 - `run.ps1` testado no Windows (DT-03) e corrigido: não para mais com saída redirecionada (`2>&1`); `--areas PA,SP` chega inteiro ao pipeline; falha do `venv` ou do `pip` interrompe o script.
 - README e `CLAUDE.md`: teste rápido com `OUTPUT_DIR`/`RAW_DIR` em `data/teste-rapido/`, sem sobrescrever o `output/` versionado (DT-16 mitigado).

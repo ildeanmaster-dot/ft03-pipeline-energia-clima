@@ -40,16 +40,16 @@ pelo enunciado. Status por evidência: **Implementado** = código e teste existe
 | RNF-09 | Relatório de qualidade em JSON ou CSV entregue | 3 | Obrig. | Implementado | `output/reports/quality_report.json` |
 | RNF-10 | Repositório público | 5 | Obrig. | Implementado | https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima |
 | RNF-11 | Link enviado até 23/11/2026 às 08h00 pelo formulário | 5 | Obrig. | Pendente | P-03 |
-| RNF-12 | Reprodutibilidade do pipeline (critério de avaliação) | 4 | Obrig. | Parcial | Cópia limpa testada em Linux; falta no Windows (DT-02) |
+| RNF-12 | Reprodutibilidade do pipeline (critério de avaliação) | 4 | Obrig. | Implementado | Clone limpo do GitHub no Windows em 23/11/2026, seguindo só o README: `43 passed` e execução completa `success_with_warnings` (41 de 42), com Parquet idênticos byte a byte aos versionados (DT-02) |
 | RNF-13 | Robustez a exceções HTTP e falhas (critério de avaliação) | 4 | Obrig. | Implementado | `tests/test_http_client.py`, `tests/test_integracao_http.py` |
 | RNF-14 | Governança: schema, integridade, relatório descritivo (critério de avaliação) | 4 | Obrig. | Implementado | `quality.py`; política de bloqueio; `test_falha_de_qualidade_bloqueia_publicacao_...` |
 
 ## 3. Resumo por status
 | Status | RF | RNF | Total |
 |---|---|---|---|
-| Implementado | 16 | 12 | 28 |
-| Parcial | 0 | 1 | 1 |
+| Implementado | 16 | 13 | 29 |
+| Parcial | 0 | 0 | 0 |
 | Pendente | 0 | 1 | 1 |
 
-Situação em 23/11/2026: falta validar a reprodutibilidade num clone limpo (RNF-12) e enviar
+Situação em 23/11/2026: reprodutibilidade confirmada num clone limpo (RNF-12); falta enviar
 o link pelo formulário (RNF-11).

@@ -6,8 +6,8 @@ Versão 1.1 · 23/11/2026 (atualize a cada sessão de trabalho)
 
 **Resumo (23/11/2026):** o pipeline rodou com as APIs reais no Windows (Python 3.12,
 `duckdb` 2.0.0), o `output/` foi gerado e versionado e o repositório público foi criado:
-https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima. Falta enviar o link pelo
-formulário e validar o README num clone limpo.
+https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima. O README foi validado num
+clone limpo no Windows (RNF-12). Falta enviar o link pelo formulário e definir a licença.
 
 ## 1. Situação por etapa
 | Etapa | Situação | O que falta |
@@ -18,7 +18,7 @@ formulário e validar o README num clone limpo.
 | 4. Estrutura do repositório | Concluída | — |
 | 5. Execução ponta a ponta | Concluída | — |
 | 6. Resiliência, qualidade e reprocessamento | Concluída | — |
-| 7. Testes e documentação | Concluída | Validar o README num clone limpo no Windows |
+| 7. Testes e documentação | Concluída | — |
 | 8. Revisão e entrega | Parcial | Enviar o link pelo formulário |
 
 ## 2. Situação por componente
@@ -65,5 +65,5 @@ formulário e validar o README num clone limpo.
 | # | Ação | Quem |
 |---|---|---|
 | 1 | Enviar o link do repositório pelo formulário antes de 23/11/2026 08h00 | Freitas |
-| 2 | Clonar em outra pasta e seguir só o README (prova de reprodutibilidade, RNF-12) | Freitas |
+| 2 | Definir a licença do repositório (`custos-e-licencas.md`) | Freitas |
 | 3 | Clicar em Run Task, F5 e Testing no VS Code para fechar a parte "a validar" do DT-04 | Freitas |

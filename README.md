@@ -80,7 +80,7 @@ Documentação: [visão não técnica](docs/01-negocio/visao-geral.md) ·
 
 ## 3. Como executar
 
-Requisitos: **Python 3.11 ou superior** (exigência do `duckdb` 2.0.0; testado em 3.13) e acesso à internet.
+Requisitos: **Python 3.11 ou superior** (exigência do `duckdb` 2.0.0; testado em 3.13 no Linux e em 3.12 no Windows) e acesso à internet.
 
 > **Processador sem AVX:** em 12/11/2026 o `duckdb` 2.0.0 encerrou com "Illegal instruction" ao ser
 > importado num Linux com processador Intel Core i7-870 (sem AVX). No mesmo ambiente, o `duckdb` 1.5.6
@@ -88,8 +88,8 @@ Requisitos: **Python 3.11 ou superior** (exigência do `duckdb` 2.0.0; testado e
 > do `requirements.txt` para `duckdb==1.5.6` e reinstale. Detalhes em `docs/00-gestao/debito-tecnico.md` (DT-15).
 
 ```bash
-git clone <url-do-repositorio>
-cd <pasta-do-repositorio>
+git clone https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima.git
+cd ft03-pipeline-energia-clima
 ./run.sh
 ```
 
@@ -116,7 +116,11 @@ opções valem para `.\run.ps1`.
 > Resultado esperado: `Status final: success` e o `git status` sem mudanças em `output/`. Se o
 > `output/` já foi sobrescrito, restaure com `git checkout -- output/`.
 
-Testes: `PYTHONPATH=src .venv/bin/python -m pytest`
+Testes (não usam internet; resultado esperado: `43 passed`):
+Linux/macOS `.venv/bin/python -m pytest -q` · Windows `.venv\Scripts\python -m pytest -q`.
+
+A execução completa com o período padrão gera de novo os mesmos Parquet de `output/`; no
+`git status` muda só `output/reports/quality_report.json` (tempos e identificação da execução).
 
 ### Variáveis de ambiente
 

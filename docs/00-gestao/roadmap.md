@@ -17,7 +17,7 @@ reservado para correções, não para implementação.
 | 18/11 | Qualidade | Validações e relatório | Concluído (adiantado) |
 | 19/11 | Resiliência e reprocessamento | Falhas tratadas, reexecução segura | Concluído em teste |
 | 20/11 | Testes | Cenários principais automatizados | Concluído (43 testes) |
-| 21/11 | Documentação | README e execução em ambiente limpo | Documentação concluída; clone limpo no Windows pendente |
+| 21/11 | Documentação | README e execução em ambiente limpo | Documentação concluída; clone limpo no Windows validado em 23/11/2026 |
 | 22/11 | Revisão final | Artefatos conferidos, versão de entrega | Pendente |
 | 23/11 antes das 08h00 | Submissão | Link enviado pelo formulário | Pendente |
 

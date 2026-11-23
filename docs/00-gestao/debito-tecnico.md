@@ -5,7 +5,7 @@ Versão 1.1 · 23/11/2026
 | ID | Débito | Impacto | Tipo | Prioridade | Ação | Depende de | Status |
 |---|---|---|---|---|---|---|---|
 | DT-01 | Pipeline nunca executado com as APIs reais | Não há prova de que a extração funciona de ponta a ponta fora do teste; `output/` não existe | Validação | Alta | Rodar o teste rápido e depois a execução completa | Acesso à internet no computador | Resolvido (23/11/2026: execução completa no Windows, 44.160 linhas) |
-| DT-02 | README não validado num clone limpo no Windows | Um avaliador pode não conseguir reproduzir | Reprodutibilidade | Alta | Clonar em outra pasta e seguir só o README | DT-01 | Aberto |
+| DT-02 | README não validado num clone limpo no Windows | Um avaliador pode não conseguir reproduzir | Reprodutibilidade | Alta | Clonar em outra pasta e seguir só o README | DT-01 | Resolvido (23/11/2026): clone do GitHub no Windows (PowerShell 5.1, Python 3.12, duckdb 2.0.0) seguindo só o README: `venv` e `pip` sem erro, `43 passed`, execução completa `success_with_warnings` (41 de 42) com Parquet idênticos aos versionados. README corrigido: URL real no `git clone` e comando de testes também para Windows |
 | DT-03 | `run.ps1` escrito sem teste | Pode falhar no PowerShell | Validação | Média | Rodar `.\run.ps1 --inicio 2026-10-01 --fim 2026-10-01 --areas PA` | — | Resolvido (23/11/2026, PowerShell 5.1): rodou com `success` (42 de 42). Corrigidos: com saída redirecionada (`2>&1`) o script parava na primeira linha de log; `--areas PA,SP` chegava como `PA SP`; falha do `venv` ou do `pip` não interrompia. Testado: direto, com `2>&1`, com `-File` e `-ExecutionPolicy Bypass`, com `PA,SP` e com área inválida (código 2) |
 | DT-04 | `.vscode/` não aberto no VS Code | Tarefa ou depuração pode precisar de ajuste (ex.: caminho do interpretador) | Validação | Média | Abrir a pasta, selecionar o interpretador e rodar cada tarefa | — | Resolvido (23/11/2026): os 4 JSON são válidos e os comandos das 6 tarefas e das 4 configurações de depuração rodaram no PowerShell do Windows (Python 3.12, duckdb 2.0.0): testes `43 passed`, teste rápido e `--skip-extract` com `success` (42 de 42). Corrigido: o teste rápido gravava em `output/` e trocaria a partição `mes=10` versionada; agora grava em `data/teste-rapido/`. A validar: clicar em Run Task, F5 e Testing dentro do VS Code |
 | DT-05 | Versão de Python: mínima 3.11 (exigência do `duckdb` 2.0.0 no PyPI). Testado em 3.13 (duckdb 2.0.0) e 3.12 (duckdb 1.5.6), ambos em Linux | No Windows ainda não testado | Compatibilidade | Média | Registrar a versão usada na execução real no Windows | DT-01 | Resolvido (23/11/2026: Windows, Python 3.12, duckdb 2.0.0) |
@@ -24,9 +24,9 @@ Versão 1.1 · 23/11/2026
 ## Resumo (23/11/2026)
 | Status | Quantidade |
 |---|---|
-| Aberto | 4 (DT-02, DT-09, DT-10, DT-11) |
+| Aberto | 3 (DT-09, DT-10, DT-11) |
 | Mitigado | 2 (DT-08, DT-16) |
 | Aceito | 5 (DT-06, DT-07, DT-12, DT-13, DT-14) |
-| Resolvido | 5 (DT-01, DT-03, DT-04, DT-05, DT-15) |
+| Resolvido | 6 (DT-01, DT-02, DT-03, DT-04, DT-05, DT-15) |
 
-O de prioridade Alta ainda aberto (DT-02) precisa ser resolvido antes da entrega.
+Nenhum débito de prioridade Alta segue aberto. Os abertos são de prioridade Baixa.
