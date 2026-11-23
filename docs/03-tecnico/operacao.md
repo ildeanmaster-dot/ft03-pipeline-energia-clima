@@ -49,7 +49,7 @@ gravação levam segundos. Tempo real **[a medir na primeira execução]**.
 | `ExtractionError: Open-Meteo ...: N horas, esperado M` | A API devolveu menos horas (período muito recente) | Recuar `DATA_FIM` |
 | `ExtractionError: ... registro sem os campos obrigatórios` | O ONS mudou o formato | Comparar a resposta com `fontes-de-dados.md`; ajustar `ONS_REQUIRED_FIELDS` e o schema do SQL |
 | Aviso `ONS sem dados na origem para X em AAAA-MM-DD` | A origem não tem aquele dia | Conferir no navegador; se confirmar, é lacuna da fonte |
-| Aviso `JSON com valor ausente reparado` | O ONS devolveu um campo sem valor | O registro entra com nulo e é rejeitado em T2 se for a carga |
+| `ExtractionError: Resposta não é JSON válido` | A API devolveu página de erro ou JSON malformado | Abrir a URL no navegador; rodar de novo. O pipeline não repara a resposta |
 | Erro do DuckDB `No files found that match the pattern` | `data/raw/` vazio com `--skip-extract` | Rodar sem `--skip-extract` |
 | Erro do DuckDB de conversão ao ler JSON | Campo com tipo diferente do declarado | Ver o campo na mensagem; ajustar o schema em `sql/01_staging.sql` |
 | `status: failed_quality` | Verificação bloqueante falhou | Ler `verificacoes` com `passed: false` e `severity: error` |

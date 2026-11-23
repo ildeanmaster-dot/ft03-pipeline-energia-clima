@@ -29,7 +29,7 @@ parâmetro a calibrar após a execução real.
 | RN-13 | Intervalo mínimo entre chamadas: 1 s (ONS), 0,5 s (Open-Meteo), 1 s (Nager.Date) | Projeto; limite do Open-Meteo na fonte | Provisório | `.env.example`, `load_settings` |
 | RN-14 | 429, 500, 502, 503, 504, timeout e queda de conexão são repetidos até 5 vezes, com espera crescente; `Retry-After` é respeitado até 120 s | Enunciado (retentativas); valores do Projeto | Implementado | `build_retry` em `http_client.py` |
 | RN-15 | Demais erros 4xx não são repetidos | Projeto | Implementado | `HttpClient.get_text` |
-| RN-16 | JSON inválido por valor ausente é reparado para `null` e registrado como aviso | Projeto (R-05) | Implementado | `parse_json_tolerant` |
+| RN-16 | Resposta que não é JSON válido interrompe a extração; nada é reparado (o reparo de valor ausente foi retirado em 23/11/2026: o caso nunca foi reproduzido) | Projeto (R-05) | Implementado | `parse_json` |
 | RN-17 | A camada bruta guarda o retorno da API sem alteração, com o que foi pedido e quando | Projeto | Implementado | `write_raw` |
 
 ## 3. Transformação
@@ -41,6 +41,7 @@ parâmetro a calibrar após a execução real.
 | RN-21 | Medida de clima nula é **preservada** como nula; a linha recebe `clima_disponivel = false` | Projeto (D-08) | Implementado | T2 e T4 |
 | RN-22 | Nenhum valor é preenchido por suposição (sem média, sem zero no lugar de nulo) | Projeto | Implementado | T2; divisão por zero vira nulo em T5 |
 | RN-23 | Registro repetido do ONS (mesma área e instante): vence o de `din_atualizacao` mais recente | Projeto | Implementado | T3 |
+| RN-46 | Clima repetido (mesma área e hora): vence a extração mais recente (`extraido_em`, depois o nome do arquivo); o valor medido nunca é critério | Projeto (23/11/2026) | Implementado | T3, `t3_clima`; `test_t3_clima_repetido_vence_a_extracao_mais_recente` |
 | RN-24 | A hora cheia `HH:00` é formada pelos intervalos que terminam em `HH:30` e `(HH+1):00` | Fonte (valor integralizado no fim do intervalo) | Implementado | tabela `carga_horaria` |
 | RN-25 | A carga da hora é a média dos intervalos presentes; `qtd_intervalos` informa se foram 1 ou 2 | Projeto | Implementado | tabela `carga_horaria` |
 | RN-26 | Carga e clima são cruzados por área e hora UTC; hora sem clima continua no resultado | Projeto (D-07) | Implementado | T4 |
@@ -71,6 +72,6 @@ parâmetro a calibrar após a execução real.
 ## 5. Resumo por status
 | Status | Quantidade |
 |---|---|
-| Implementado | 40 |
+| Implementado | 41 |
 | Provisório | 5 (RN-13, RN-35, RN-37, RN-38, RN-40: limites a revisar com os valores da execução real) |
 | Pendente | 0 |

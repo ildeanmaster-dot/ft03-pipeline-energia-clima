@@ -22,8 +22,8 @@ mas necessária para `python -m pipeline.main`.
 | Arquivo | Testes | Cobre |
 |---|---|---|
 | `test_http_client.py` | 10 | Sucesso; 429 com `Retry-After`; 503 que se recupera; 500 persistente (esgota); 404 sem retentativa; timeout; conexão recusada; limitador de taxa com relógio falso; mascaramento de chave; chave fora da mensagem de erro |
-| `test_extract.py` | 9 | Janelas mensais; JSON válido, reparado e irrecuperável; resposta do ONS cortada (divisão da janela); dia sem dado; registro sem campo obrigatório; arrays do Open-Meteo de tamanhos diferentes; gravação dos envelopes |
-| `test_transform.py` | 12 | Os 3 desaninhamentos; T1; T2 (rejeição e preservação); T3; hora cheia; T4 (sem multiplicar, clima ausente, feriados); T5; amostras reais das três APIs |
+| `test_extract.py` | 8 | Janelas mensais; JSON válido e inválido (sem reparo); resposta do ONS cortada (divisão da janela); dia sem dado; registro sem campo obrigatório; arrays do Open-Meteo de tamanhos diferentes; gravação dos envelopes |
+| `test_transform.py` | 13 | Os 3 desaninhamentos; T1; T2 (rejeição e preservação); T3 (ONS e clima); hora cheia; T4 (sem multiplicar, clima ausente, feriados); T5; amostras reais das três APIs |
 | `test_quality.py` | 6 | Dataset válido; chave repetida; valor fora do intervalo; nulo em coluna obrigatória; schema divergente; área ausente e clima sem cobertura |
 | `test_persist_e_pipeline.py` | 5 | Parquet Snappy particionado; reexecução sem duplicar e sem tocar outra partição; ponta a ponta sem extração; bloqueio por falha de qualidade; relatório em erro de extração |
 | `test_integracao_http.py` | 1 | Ponta a ponta com o cliente HTTP real contra um servidor local que devolve 503 na primeira chamada de cada API e corta o ONS em 20 dias |

@@ -35,7 +35,7 @@ pelo enunciado. Status por evidência: **Implementado** = código e teste existe
 | RNF-04 | Repositório Git com estrutura modular em `src/`, no GitHub | 3 | Obrig. | Implementado | https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima (23/11/2026) |
 | RNF-05 | README com instruções de execução, variáveis de ambiente e documentação das APIs | 3 | Obrig. | Implementado | `README.md`, seções 1 e 3 |
 | RNF-06 | `requirements.txt` para reprodução exata | 3 | Obrig. | Implementado | Versões fixadas com `==` |
-| RNF-07 | `run.sh` ou comando único ponta a ponta | 3 | Obrig. | Implementado | `run.sh` testado em Linux; no Windows, `python -m pipeline.main` executado em 23/11/2026 (`run.ps1` não testado, DT-03) |
+| RNF-07 | `run.sh` ou comando único ponta a ponta | 3 | Obrig. | Implementado | `run.sh` testado em Linux; no Windows, `python -m pipeline.main` executado em 23/11/2026 e `run.ps1` testado em 23/11/2026 (DT-03) |
 | RNF-08 | Dataset em `output/` (.parquet) | 3 | Obrig. | Implementado | 3 partições, 44.160 linhas (23/11/2026) |
 | RNF-09 | Relatório de qualidade em JSON ou CSV entregue | 3 | Obrig. | Implementado | `output/reports/quality_report.json` |
 | RNF-10 | Repositório público | 5 | Obrig. | Implementado | https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima |

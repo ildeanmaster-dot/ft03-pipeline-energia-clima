@@ -116,7 +116,7 @@ def load_settings(env: Mapping[str, str] | None = None) -> Settings:
     if data_fim < data_inicio:
         raise ConfigError("DATA_FIM não pode ser anterior a DATA_INICIO")
 
-    areas_file = _resolve_path(get("AREAS_FILE", "config/areas_carga.csv"))
+    areas_file = PROJECT_ROOT / "config" / "areas_carga.csv"
     selected = tuple(code.strip().upper() for code in get("AREAS", "").split(",") if code.strip())
     api_key = source.get("OPEN_METEO_API_KEY", "").strip() or None
 

@@ -65,5 +65,4 @@ clone limpo no Windows (RNF-12). Falta enviar o link pelo formulário e definir 
 | # | Ação | Quem |
 |---|---|---|
 | 1 | Enviar o link do repositório pelo formulário antes de 23/11/2026 08h00 | Freitas |
-| 2 | Definir a licença do repositório (`custos-e-licencas.md`) | Freitas |
-| 3 | Clicar em Run Task, F5 e Testing no VS Code para fechar a parte "a validar" do DT-04 | Freitas |
+| 2 | Definir a licença do repositório (`custos-e-licencas.md`) | Freitas || 3 | Clicar em Run Task, F5 e Testing no VS Code para fechar a parte "a validar" do DT-04 | Freitas |

@@ -99,8 +99,7 @@ def null_ratios(con: duckdb.DuckDBPyConnection, table: str, columns: list[str]) 
     if total == 0:
         return {column: 0.0 for column in columns}
     expressions = ", ".join(f'count(*) FILTER (WHERE "{column}" IS NULL)' for column in columns)
-    row = con.execute(f"SELECT {expressions} FROM {table}").fetchone()
-    assert row is not None
+    row = con.execute(f"SELECT {expressions} FROM {table}").fetchone() or (0,) * len(columns)
     return {column: round(nulls / total, 6) for column, nulls in zip(columns, row)}
 
 

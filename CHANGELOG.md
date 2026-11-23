@@ -1,5 +1,13 @@
 # Histórico de mudanças
 
+## 0.4.0 — 23/11/2026
+- Revisão de complexidade (D-15). Retirado o reparo automático de JSON com valor ausente (caso nunca reproduzido): resposta inválida para a extração com `ExtractionError`.
+- Clima repetido (mesma área e hora): vence a extração mais recente, não mais a maior temperatura (RN-46, teste novo).
+- Removida a variável `AREAS_FILE`, que não estava documentada; `assert` trocado em `quality.py`; cálculo do último dia de clima reescrito para leitura.
+- README: tabela de qualidade completa (todas as faixas e limites de nulos do contrato). `requisitos.md`: RNF-07 atualizado.
+- Conferido: 43 testes passando; execução completa com Parquet idênticos byte a byte aos versionados.
+- Mantidos (P-10): variáveis de ajuste HTTP, chave opcional do Open-Meteo e bloqueio por carga MMGD fora da faixa, este com fonte no dicionário do ONS (`val_cargammgd` não permite negativo).
+
 ## 0.3.3 — 23/11/2026
 - RNF-12 validado: clone do GitHub no Windows, seguindo só o README: `43 passed` e execução completa `success_with_warnings` (41 de 42), com Parquet idênticos byte a byte aos versionados (DT-02).
 - README: URL real no `git clone`, comando de testes para Windows e Linux, Python testado no Windows.

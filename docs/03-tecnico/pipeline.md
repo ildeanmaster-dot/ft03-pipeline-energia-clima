@@ -25,7 +25,7 @@ Versão 1.0 · 12/11/2026
 | Elemento | O que faz |
 |---|---|
 | `month_windows` | Divide o período em janelas que não cruzam a virada de mês |
-| `parse_json_tolerant` | Lê JSON; repara valor ausente para `null` |
+| `parse_json` | Lê o JSON da resposta; JSON inválido levanta `ExtractionError` (nada é reparado) |
 | `fetch_ons_window` | Busca uma janela do ONS e garante a cobertura dos dias, dividindo quando preciso |
 | `extract_ons`, `extract_open_meteo`, `extract_nager` | Uma função por API; gravam a camada bruta e devolvem `SourceStats` |
 | `validate_open_meteo` | Confere a estrutura horária e a quantidade de horas |
@@ -73,7 +73,7 @@ Lê a camada bruta com **schema declarado** (campo de tipo inesperado falha na l
 |---|---|---|
 | **T1** Tipos e datas | `t1_ons`, `t1_clima`, `t1_feriados` | `TRY_CAST` para `DATE` e `TIMESTAMP`; remove o `Z` (o instante já é UTC); códigos em maiúsculas; `BR-SP` → `SP`; mantém só feriado `Public` |
 | **T2** Nulos | `rejeitados_ons`, `t2_ons`, `t2_clima` | Separa os registros do ONS com área, data, instante ou carga nulos, com o motivo; mantém o clima nulo |
-| **T3** Deduplicação | `t3_ons`, `t3_clima`, `t3_feriados` | `ROW_NUMBER` por chave; no ONS vence o `din_atualizacao` mais recente; feriados agregados por (data, UF) |
+| **T3** Deduplicação | `t3_ons`, `t3_clima`, `t3_feriados` | `ROW_NUMBER` por chave; no ONS vence o `din_atualizacao` mais recente; no clima vence a extração mais recente (`extraido_em`); feriados agregados por (data, UF) |
 | Agregação | `carga_horaria` | `date_trunc('hour', instante − 30 min)`; média, máximo, média da MMGD, contagem de intervalos |
 | **T4** JOIN | `t4_cruzado` | `carga_horaria` ⋈ `dim_areas` (interno) ⟕ `t3_clima` (área, hora) ⟕ `t3_feriados` (data de referência, UF) |
 | **T5** Métricas | `carga_clima_horaria` | Participação da MMGD, variação D-1 (auto-junção com a hora − 24 h), dia da semana, fim de semana, ano, mês |

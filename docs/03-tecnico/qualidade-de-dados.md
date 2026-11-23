@@ -54,7 +54,7 @@ primeira execução real (RN-35, RN-37, RN-38, RN-40).
 1. `status` e `erros`: a execução terminou? Por quê não?
 2. `resumo_verificacoes`: `falhas_bloqueantes` tem de ser 0.
 3. `verificacoes` com `passed: false`: ler `observed`, `expected` e `detail`.
-4. `extracao.<fonte>.avisos`: dias sem dado, dias sem 48 registros, JSON reparado.
+4. `extracao.<fonte>.avisos`: dias sem dado, dias sem 48 registros.
 5. `extracao.<fonte>.retentativas`: se alto, a API estava instável.
 6. `linhas_por_etapa`: a queda entre etapas tem de ser explicável:
    - `ons_registros_apos_unnest` − `ons_rejeitados_por_nulo` = `ons_apos_tratamento_nulos`;

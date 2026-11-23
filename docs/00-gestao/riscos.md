@@ -10,7 +10,7 @@ Probabilidade e impacto são avaliação do projeto (Alta, Média, Baixa), não 
 | R-02 | API fora do ar ou lenta perto do prazo | Baixa | Alto | Executar e versionar o `output/` com dias de antecedência; `--skip-extract` reaproveita o bruto já baixado | Aberto |
 | R-03 | ONS cortar a resposta em silêncio | Alta (confirmado) | Alto | Janela de um mês, conferência dos dias recebidos, divisão automática da janela | Mitigado e testado |
 | R-04 | ONS ou Nager.Date bloquearem por excesso de chamadas (limite não publicado) | Baixa | Médio | Intervalo mínimo de 1 s entre chamadas; retentativa com espera crescente e respeito ao `Retry-After` | Mitigado |
-| R-05 | ONS devolver JSON inválido quando falta um valor (relato de terceiros, não reproduzido) | Baixa | Médio | Leitura tolerante que troca o valor ausente por nulo e registra aviso | Mitigado e testado |
+| R-05 | ONS devolver JSON inválido quando falta um valor (relato de terceiros, não reproduzido) | Baixa | Médio | A extração para com `ExtractionError` e mensagem clara; o reparo automático foi retirado em 23/11/2026 por tratar um caso não reproduzido | Aceito |
 | R-06 | Mudança de formato de uma API | Baixa | Alto | Schema de leitura declarado no SQL: a quebra aparece na leitura, com erro claro | Aceito |
 | R-07 | Credencial versionada por engano | Baixa | Alto | `.env` no `.gitignore`; as APIs não exigem chave; conferir o histórico antes de publicar | Mitigado |
 | R-08 | Publicar o enunciado marcado "Internal" | Média | Médio | `insumos/*.pdf` no `.gitignore`; item no checklist de entrega | Mitigado |

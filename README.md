@@ -151,7 +151,7 @@ mascaradas) e o `.env` está no `.gitignore`.
 - **Erros permanentes** (400, 401, 403, 404) falham na hora, com mensagem clara.
 - **Timeout explícito** de conexão e de leitura em toda chamada.
 - **Resposta incompleta do ONS:** detectada pela cobertura de dias e resolvida dividindo a janela.
-- **JSON com valor ausente** (`"campo": ,`): reparado para `null` e registrado como aviso.
+- **Resposta que não é JSON válido:** a extração para com `ExtractionError`; nada é reparado por suposição.
 - **Falha em qualquer etapa:** o relatório é gravado com `status = failed` e o processo sai com código 1.
 
 ## 5. Dataset final
@@ -215,10 +215,11 @@ cada verificação, partições gravadas e erros.
 | Dimensão | Verificação | Severidade |
 |---|---|---|
 | Schema | Colunas e tipos iguais ao contrato (`quality.py`) | erro |
-| Nulos | Null ratio por coluna; 0 nas obrigatórias, até 5% nas de clima | erro / aviso |
+| Nulos | Null ratio por coluna; 0 nas obrigatórias | erro |
+| Nulos | Até 5% em `carga_mmgd_media_mw`, nas 4 de clima e em `participacao_mmgd_pct`; sem limite em `nome_feriado`, `variacao_carga_d1_pct` e `din_atualizacao_ons` | aviso |
 | Unicidade | Nenhuma chave (`cod_areacarga`, `hora_utc`) repetida | erro |
-| Intervalo | Temperatura −20 a 55 °C, umidade 0 a 100%, precipitação 0 a 500 mm, `qtd_intervalos` 1 a 2, mês 1 a 12 | erro |
-| Intervalo | Carga 0 a 100.000 MW; participação MMGD 0 a 100% | aviso |
+| Intervalo | Temperatura −20 a 55 °C, sensação térmica −30 a 65 °C, umidade 0 a 100%, precipitação 0 a 500 mm, carga MMGD 0 a 100.000 MW, `qtd_intervalos` 1 a 2, `dia_semana` 1 a 7, `ano` 2016 a 2100, `mes` 1 a 12 | erro |
+| Intervalo | Carga média e máxima 0 a 100.000 MW; participação MMGD 0 a 100% | aviso |
 | JOIN | Linhas finais = horas de carga antes do JOIN (sem multiplicação) | erro |
 | JOIN | Pelo menos 95% das horas com clima | aviso |
 | Volume | Saída não vazia | erro |
@@ -228,7 +229,8 @@ cada verificação, partições gravadas e erros.
 gravado); *aviso* é registrado e não bloqueia. O relatório é gravado nos dois casos.
 
 Os limites de intervalo são regras deste projeto. A carga é só aviso porque o dicionário do
-ONS admite valor negativo em `val_cargaglobal`.
+ONS admite valor negativo em `val_cargaglobal`; a carga MMGD fora da faixa bloqueia porque o
+mesmo dicionário não admite valor negativo em `val_cargammgd` (versão 1.1, 30/10/2023).
 
 ## 8. Persistência e reprocessamento
 

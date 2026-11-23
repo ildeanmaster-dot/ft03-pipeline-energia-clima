@@ -9,7 +9,6 @@ from __future__ import annotations
 import json
 import logging
 import os
-import re
 import shutil
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta, timezone
@@ -35,7 +34,6 @@ HOURLY_VARIABLES: tuple[str, ...] = (
     "apparent_temperature",
     "precipitation",
 )
-_MISSING_JSON_VALUE = re.compile(r":\s*(?=[,}\]])")
 
 
 class ExtractionError(Exception):
@@ -72,19 +70,12 @@ def month_windows(start: date, end: date) -> list[tuple[date, date]]:
     return windows
 
 
-def parse_json_tolerant(text: str) -> tuple[Any, bool]:
-    """Interpreta JSON; se inválido por valor ausente (``"campo": ,``), troca por ``null``.
-
-    Devolve ``(objeto, reparado)``. Qualquer outro defeito levanta ``ExtractionError``.
-    """
+def parse_json(text: str) -> Any:
+    """Interpreta a resposta como JSON; resposta inválida levanta ``ExtractionError``."""
     try:
-        return json.loads(text), False
-    except json.JSONDecodeError:
-        repaired = _MISSING_JSON_VALUE.sub(": null", text)
-        try:
-            return json.loads(repaired), True
-        except json.JSONDecodeError as exc:
-            raise ExtractionError(f"Resposta não é JSON válido: {exc}") from exc
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise ExtractionError(f"Resposta não é JSON válido: {exc}") from exc
 
 
 def write_raw(path: Path, meta: dict[str, Any], payload: Any) -> None:
@@ -121,9 +112,7 @@ def fetch_ons_window(
         ONS_URL,
         params={"dat_inicio": start.isoformat(), "dat_fim": end.isoformat(), "cod_areacarga": area},
     )
-    payload, repaired = parse_json_tolerant(text)
-    if repaired:
-        stats.warn(f"JSON com valor ausente reparado (null) em {area} {start}..{end}")
+    payload = parse_json(text)
     if not isinstance(payload, list):
         raise ExtractionError(f"ONS {area} {start}..{end}: esperado array JSON, veio {type(payload).__name__}")
     for record in payload:
@@ -199,8 +188,10 @@ def extract_open_meteo(client: TextClient, settings: Settings) -> SourceStats:
     stats = SourceStats("open_meteo")
     url = OPEN_METEO_COMMERCIAL_URL if settings.open_meteo_api_key else OPEN_METEO_URL
     # O dia de referência do ONS termina às 03:00 UTC do dia seguinte: o clima
-    # precisa cobrir um dia a mais (limitado a hoje) para não faltar nas últimas horas.
-    weather_end = min(settings.data_fim + timedelta(days=1), max(settings.data_fim, datetime.now(timezone.utc).date()))
+    # precisa cobrir um dia a mais para não faltar nas últimas horas. O dia a mais
+    # não passa de hoje (não há clima histórico do futuro), mas nunca fica antes de data_fim.
+    today = datetime.now(timezone.utc).date()
+    weather_end = max(settings.data_fim, min(settings.data_fim + timedelta(days=1), today))
     for area in settings.areas:
         for start, end in month_windows(settings.data_inicio, weather_end):
             params = {
@@ -213,7 +204,7 @@ def extract_open_meteo(client: TextClient, settings: Settings) -> SourceStats:
             }
             if settings.open_meteo_api_key:
                 params["apikey"] = settings.open_meteo_api_key
-            payload, _ = parse_json_tolerant(client.get_text(url, params=params))
+            payload = parse_json(client.get_text(url, params=params))
             hours = validate_open_meteo(payload, area, start, end)
             write_raw(
                 settings.raw_dir / "open_meteo" / f"{area.cod_areacarga}_{start}_{end}.json",
@@ -235,7 +226,7 @@ def extract_open_meteo(client: TextClient, settings: Settings) -> SourceStats:
 def extract_nager(client: TextClient, settings: Settings) -> SourceStats:
     stats = SourceStats("nager")
     for year in range(settings.data_inicio.year, settings.data_fim.year + 1):
-        payload, _ = parse_json_tolerant(client.get_text(NAGER_URL.format(year=year)))
+        payload = parse_json(client.get_text(NAGER_URL.format(year=year)))
         if not isinstance(payload, list) or any("date" not in item for item in payload):
             raise ExtractionError(f"Nager.Date {year}: esperado array de feriados com o campo 'date'")
         if not payload:

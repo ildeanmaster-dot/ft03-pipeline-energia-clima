@@ -66,6 +66,8 @@ FROM read_json(
 -- UNNEST 2: arrays paralelos desaninhados lado a lado -> uma linha por hora
 CREATE OR REPLACE TABLE stg_clima AS
 SELECT
+    filename                                        AS arquivo_origem,
+    meta.extraido_em                                AS extraido_em,
     meta.cod_areacarga                              AS cod_areacarga,
     payload.latitude                                AS latitude_grade,
     payload.longitude                               AS longitude_grade,

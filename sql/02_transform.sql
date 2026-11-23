@@ -26,7 +26,9 @@ SELECT
     temperature_2m                      AS temperatura_c,
     relative_humidity_2m                AS umidade_relativa_pct,
     apparent_temperature                AS sensacao_termica_c,
-    precipitation                       AS precipitacao_mm
+    precipitation                       AS precipitacao_mm,
+    extraido_em,
+    arquivo_origem
 FROM stg_clima;
 
 CREATE OR REPLACE TABLE t1_feriados AS
@@ -74,7 +76,8 @@ WHERE cod_areacarga IS NOT NULL AND hora_utc IS NOT NULL;
 -- ---------------------------------------------------------------------
 -- T3 — DEDUPLICAÇÃO
 -- ONS: chave (área, instante); vence o registro com din_atualizacao mais
--- recente. Clima: chave (área, hora). Feriados: um por (data, UF).
+-- recente. Clima: chave (área, hora); vence a extração mais recente (o
+-- desempate nunca usa o valor medido). Feriados: um por (data, UF).
 -- ---------------------------------------------------------------------
 CREATE OR REPLACE TABLE t3_ons AS
 SELECT *
@@ -89,7 +92,7 @@ SELECT *
 FROM t2_clima
 QUALIFY row_number() OVER (
     PARTITION BY cod_areacarga, hora_utc
-    ORDER BY temperatura_c DESC NULLS LAST
+    ORDER BY extraido_em DESC NULLS LAST, arquivo_origem DESC
 ) = 1;
 
 -- Feriado nacional vale para todas as UFs do parâmetro; regional só para a

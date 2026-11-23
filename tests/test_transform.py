@@ -9,7 +9,7 @@ from pathlib import Path
 import duckdb
 import pytest
 
-from conftest import AREAS_FILE, SQL_DIR, ons_records, write_envelope
+from conftest import AREAS_FILE, SQL_DIR, ons_records, open_meteo_payload, write_envelope
 from pipeline.transform import FINAL_TABLE, run_transformations
 
 
@@ -90,6 +90,21 @@ def test_t3_deduplicacao_vence_o_registro_mais_recente(con: duckdb.DuckDBPyConne
     assert con.execute(
         f"SELECT carga_media_mw FROM {FINAL_TABLE} WHERE cod_areacarga = 'PA' AND hora_utc = TIMESTAMP '2026-10-11 03:00:00'"
     ).fetchone() == (pytest.approx(5000.5),)
+
+
+def test_t3_clima_repetido_vence_a_extracao_mais_recente(con: duckdb.DuckDBPyConnection, raw_dir: Path) -> None:
+    # segundo arquivo repete o dia 11 de PA, extraído depois e com temperatura MENOR:
+    # vence pela data de extração, nunca pelo valor medido
+    newer = raw_dir / "open_meteo" / "PA_2026-10-11_2026-10-11.json"
+    meta = {"cod_areacarga": "PA", "latitude_solicitada": -3.98, "longitude_solicitada": -53.07,
+            "dat_inicio": "2026-10-11", "dat_fim": "2026-10-11", "extraido_em": "2026-11-20T08:00:00+00:00"}
+    newer.write_text(json.dumps({"meta": meta, "payload": open_meteo_payload(date(2026, 10, 11), date(2026, 10, 11), temperature=10.0)}), encoding="utf-8")
+    counts = run(con, raw_dir)
+    assert counts["clima_horas_apos_unnest"] == 2 * 72 + 24
+    assert counts["clima_apos_deduplicacao"] == 2 * 72
+    assert con.execute(
+        f"SELECT temperatura_c FROM {FINAL_TABLE} WHERE cod_areacarga = 'PA' AND hora_utc = TIMESTAMP '2026-10-11 05:00:00'"
+    ).fetchone() == (pytest.approx(10.5),)
 
 
 def test_agregacao_meia_hora_para_hora_cheia(con: duckdb.DuckDBPyConnection, raw_dir: Path) -> None:

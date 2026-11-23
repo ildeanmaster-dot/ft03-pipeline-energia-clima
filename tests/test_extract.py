@@ -1,4 +1,4 @@
-"""Extração: janelas, JSON tolerante, truncamento silencioso do ONS e validação de formato."""
+"""Extração: janelas, leitura do JSON, truncamento silencioso do ONS e validação de formato."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ import pytest
 from conftest import holidays_payload, ons_records, open_meteo_payload
 from pipeline import extract
 from pipeline.config import Settings
-from pipeline.extract import ExtractionError, SourceStats, fetch_ons_window, month_windows, parse_json_tolerant
+from pipeline.extract import ExtractionError, SourceStats, fetch_ons_window, month_windows, parse_json
 
 
 def test_month_windows_nao_cruza_virada_de_mes() -> None:
@@ -26,19 +26,15 @@ def test_month_windows_nao_cruza_virada_de_mes() -> None:
     ]
 
 
-def test_json_valido_nao_e_alterado() -> None:
-    assert parse_json_tolerant('[{"a": 1}]') == ([{"a": 1}], False)
+def test_json_valido_e_lido_sem_alteracao() -> None:
+    assert parse_json('[{"a": 1}]') == [{"a": 1}]
 
 
-def test_json_com_valor_ausente_e_reparado_para_null() -> None:
-    parsed, repaired = parse_json_tolerant('[{"val_cargaglobal": , "x": 1, "y": }]')
-    assert repaired is True
-    assert parsed == [{"val_cargaglobal": None, "x": 1, "y": None}]
-
-
-def test_json_irrecuperavel_levanta_erro() -> None:
+def test_json_invalido_levanta_erro() -> None:
     with pytest.raises(ExtractionError):
-        parse_json_tolerant("<html>erro</html>")
+        parse_json("<html>erro</html>")
+    with pytest.raises(ExtractionError):  # valor ausente não é reparado: a resposta é recusada
+        parse_json('[{"val_cargaglobal": , "x": 1}]')
 
 
 class TruncatingOnsClient:
