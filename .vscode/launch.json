@@ -1,0 +1,44 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Pipeline: período padrão (.env)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pipeline.main",
+      "cwd": "${workspaceFolder}",
+      "env": { "PYTHONPATH": "${workspaceFolder}/src" },
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Pipeline: teste rápido (PA, 1 dia)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pipeline.main",
+      "args": ["--inicio", "2026-10-01", "--fim", "2026-10-01", "--areas", "PA"],
+      "cwd": "${workspaceFolder}",
+      "env": { "PYTHONPATH": "${workspaceFolder}/src" },
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Pipeline: sem extração (reusa data/raw)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pipeline.main",
+      "args": ["--skip-extract"],
+      "cwd": "${workspaceFolder}",
+      "env": { "PYTHONPATH": "${workspaceFolder}/src" },
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Testes: arquivo atual",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["${file}", "-q"],
+      "cwd": "${workspaceFolder}",
+      "env": { "PYTHONPATH": "${workspaceFolder}/src" },
+      "console": "integratedTerminal"
+    }
+  ]
+}

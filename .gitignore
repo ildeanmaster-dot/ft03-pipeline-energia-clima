@@ -1,0 +1,20 @@
+# credenciais e ambiente local
+.env
+.venv/
+venv/
+
+# camada bruta (reproduzível pela extração)
+data/raw/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# IDE / SO (a pasta .vscode é versionada de propósito: tarefas, depuração e testes)
+.idea/
+.DS_Store
+Thumbs.db
+
+# insumo com marcação "Internal": não publicar
+insumos/*.pdf

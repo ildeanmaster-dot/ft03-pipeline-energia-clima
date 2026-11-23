@@ -1,0 +1,33 @@
+# Decisões e pendências
+
+Versão 1.0 · 12/11/2026
+
+## 1. Decisões
+| # | Decisão | Data | Situação |
+|---|---|---|---|
+| D-01 | Fontes: ONS Carga Verificada (energia) + Open-Meteo Historical (clima) | 12/11/2026 | Aprovada pelo responsável |
+| D-02 | Nager.Date (feriados) entra como terceira fonte | 12/11/2026 | Aprovada ("aceito sugestão") |
+| D-03 | Áreas: as 20 que o dicionário do ONS nomeia com uma única UF | 12/11/2026 | Aprovada ("aceito sugestão") |
+| D-04 | Coordenada de cada área: centróide da UF pela API de Malhas do IBGE, em `config/areas_carga.csv` | 12/11/2026 | Aprovada ("aceito sugestão") |
+| D-05 | Período padrão: 01/08 a 31/10/2026, alterável no `.env` | 12/11/2026 | Aprovada ("aceito sugestão") |
+| D-06 | Tecnologia: Python + DuckDB + Parquet, sem orquestrador nem nuvem | 12/11/2026 | Adotada (ADR-01) |
+| D-07 | Granularidade: 1 linha = área × hora UTC; a meia hora do ONS é agregada para hora cheia | 12/11/2026 | Adotada (ADR-04) |
+| D-08 | Nulo em chave ou carga rejeita o registro; nulo de clima é preservado. Nada é preenchido por suposição | 12/11/2026 | Adotada (ADR-05) |
+| D-09 | Falha de qualidade com severidade "erro" bloqueia a publicação do Parquet | 12/11/2026 | Adotada (ADR-06) |
+| D-10 | Reprocessamento substitui a partição inteira do mês (apaga e regrava) | 12/11/2026 | Adotada (ADR-07) |
+| D-11 | Extração do ONS em janelas de um mês, com divisão automática quando faltam dias | 12/11/2026 | Adotada (ADR-03) |
+| D-12 | O PDF do enunciado (marca "Internal") não é versionado | 12/11/2026 | Adotada |
+| D-13 | A pasta `.vscode/` é versionada (tarefas, depuração, testes) | 12/11/2026 | Adotada |
+
+## 2. Pendências
+| # | Pendência | Bloqueia | Com quem | Desde |
+|---|---|---|---|---|
+| P-01 | Executar o pipeline com as APIs reais e gerar `output/` | Entregas E5 e E6 | Freitas | 12/11/2026 |
+| P-02 | Criar o repositório público no GitHub (conta `ildeanmaster-dot`) e definir o nome (sugestão: `ft03-pipeline-energia-clima`) | Entrega E1 | Freitas | 12/11/2026 |
+| P-03 | Receber o link do formulário de entrega | Envio | Organização do desafio | 12/11/2026 |
+| P-04 | Validar `run.ps1` e a configuração `.vscode/` no Windows | Não bloqueia a entrega (o `run.sh` atende) | Freitas | 12/11/2026 |
+| P-05 | Decidir se este desafio terá portal de acompanhamento (padrão Yottaflow). O gerador precisa da pasta `portal/` de um projeto modelo | Não bloqueia | Freitas | 12/11/2026 |
+| P-06 | Decidir se o `output/` versionado terá as 20 áreas e os 3 meses ou um recorte menor | Tamanho do repositório | Freitas | 12/11/2026 |
+| P-07 | Confirmar com quem emitiu o enunciado se o PDF pode ser publicado | Não bloqueia | Freitas | 12/11/2026 |
+| P-08 | Versão do `duckdb`: manter 2.0.0 (LTS atual; falhou no Linux remoto desta máquina por falta de AVX) ou fixar 1.5.6 (funciona aqui; linha fora de suporte desde 01/11/2026). Depende do teste de `import duckdb` no Windows | Execução nesta máquina (P-01) | Freitas | 12/11/2026 |
+| P-09 | Renomear `_vscode` para `.vscode` (a ferramenta de gravação remota não escreve em `.vscode`) | Tarefas e depuração no VS Code | Freitas | 12/11/2026 |

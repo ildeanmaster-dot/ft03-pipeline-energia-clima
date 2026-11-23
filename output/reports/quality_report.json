@@ -1,0 +1,522 @@
+{
+  "run_id": "f8a2319ec0a4",
+  "status": "success_with_warnings",
+  "inicio_utc": "2026-11-23T08:06:25+00:00",
+  "periodo": {
+    "data_inicio": "2026-08-01",
+    "data_fim": "2026-10-31"
+  },
+  "areas": [
+    "AC",
+    "AM",
+    "AP",
+    "CE",
+    "DF",
+    "ES",
+    "GO",
+    "MA",
+    "MG",
+    "MS",
+    "MT",
+    "PA",
+    "PI",
+    "PR",
+    "RJ",
+    "RO",
+    "RR",
+    "RS",
+    "SC",
+    "SP"
+  ],
+  "extracao": {
+    "ons": {
+      "requisicoes": 60,
+      "retentativas": 0,
+      "bytes_recebidos": 42864168,
+      "espera_rate_limit_s": 20.61,
+      "arquivos_brutos": 60,
+      "registros": 88320,
+      "avisos": []
+    },
+    "open_meteo": {
+      "requisicoes": 80,
+      "retentativas": 0,
+      "bytes_recebidos": 1683930,
+      "espera_rate_limit_s": 19.25,
+      "arquivos_brutos": 80,
+      "registros": 44640,
+      "avisos": []
+    },
+    "nager": {
+      "requisicoes": 1,
+      "retentativas": 0,
+      "bytes_recebidos": 2743,
+      "espera_rate_limit_s": 0.0,
+      "arquivos_brutos": 1,
+      "registros": 15,
+      "avisos": []
+    }
+  },
+  "linhas_por_etapa": {
+    "ons_arquivos_brutos": 60,
+    "ons_registros_apos_unnest": 88320,
+    "ons_rejeitados_por_nulo": 0,
+    "ons_apos_tratamento_nulos": 88320,
+    "ons_apos_deduplicacao": 88320,
+    "ons_horas_agregadas": 44160,
+    "clima_arquivos_brutos": 80,
+    "clima_horas_apos_unnest": 44640,
+    "clima_apos_deduplicacao": 44640,
+    "feriados_apos_unnest": 15,
+    "feriados_uf_apos_unnest": 15,
+    "feriados_por_data_uf": 241,
+    "apos_join": 44160,
+    "final": 44160
+  },
+  "null_ratio_por_coluna": {
+    "cod_areacarga": 0.0,
+    "nome_area": 0.0,
+    "uf": 0.0,
+    "dat_referencia": 0.0,
+    "hora_utc": 0.0,
+    "carga_media_mw": 0.0,
+    "carga_max_mw": 0.0,
+    "carga_mmgd_media_mw": 0.0,
+    "qtd_intervalos": 0.0,
+    "temperatura_c": 0.0,
+    "umidade_relativa_pct": 0.0,
+    "sensacao_termica_c": 0.0,
+    "precipitacao_mm": 0.0,
+    "clima_disponivel": 0.0,
+    "eh_feriado": 0.0,
+    "nome_feriado": 0.978261,
+    "dia_semana": 0.0,
+    "eh_fim_de_semana": 0.0,
+    "participacao_mmgd_pct": 0.0,
+    "variacao_carga_d1_pct": 0.01087,
+    "din_atualizacao_ons": 0.0,
+    "ano": 0.0,
+    "mes": 0.0
+  },
+  "verificacoes": [
+    {
+      "check": "schema_contrato",
+      "dimension": "schema",
+      "severity": "error",
+      "passed": true,
+      "observed": "23 colunas",
+      "expected": "23 colunas do contrato",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:cod_areacarga",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:nome_area",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:uf",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:dat_referencia",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:hora_utc",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:carga_media_mw",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:carga_max_mw",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:carga_mmgd_media_mw",
+      "dimension": "nulos",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.05",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:qtd_intervalos",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:temperatura_c",
+      "dimension": "nulos",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.05",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:umidade_relativa_pct",
+      "dimension": "nulos",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.05",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:sensacao_termica_c",
+      "dimension": "nulos",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.05",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:precipitacao_mm",
+      "dimension": "nulos",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.05",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:clima_disponivel",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:eh_feriado",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:nome_feriado",
+      "dimension": "nulos",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0.978261,
+      "expected": "<= 1.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:dia_semana",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:eh_fim_de_semana",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:participacao_mmgd_pct",
+      "dimension": "nulos",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.05",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:variacao_carga_d1_pct",
+      "dimension": "nulos",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0.01087,
+      "expected": "<= 1.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:din_atualizacao_ons",
+      "dimension": "nulos",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 1.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:ano",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "null_ratio:mes",
+      "dimension": "nulos",
+      "severity": "error",
+      "passed": true,
+      "observed": 0.0,
+      "expected": "<= 0.0",
+      "detail": ""
+    },
+    {
+      "check": "unicidade_chave",
+      "dimension": "unicidade",
+      "severity": "error",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "chave: (cod_areacarga, hora_utc)"
+    },
+    {
+      "check": "intervalo:carga_media_mw",
+      "dimension": "intervalo",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[0, 100000]"
+    },
+    {
+      "check": "intervalo:carga_max_mw",
+      "dimension": "intervalo",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[0, 100000]"
+    },
+    {
+      "check": "intervalo:carga_mmgd_media_mw",
+      "dimension": "intervalo",
+      "severity": "error",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[0, 100000]"
+    },
+    {
+      "check": "intervalo:qtd_intervalos",
+      "dimension": "intervalo",
+      "severity": "error",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[1, 2]"
+    },
+    {
+      "check": "intervalo:temperatura_c",
+      "dimension": "intervalo",
+      "severity": "error",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[-20, 55]"
+    },
+    {
+      "check": "intervalo:umidade_relativa_pct",
+      "dimension": "intervalo",
+      "severity": "error",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[0, 100]"
+    },
+    {
+      "check": "intervalo:sensacao_termica_c",
+      "dimension": "intervalo",
+      "severity": "error",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[-30, 65]"
+    },
+    {
+      "check": "intervalo:precipitacao_mm",
+      "dimension": "intervalo",
+      "severity": "error",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[0, 500]"
+    },
+    {
+      "check": "intervalo:dia_semana",
+      "dimension": "intervalo",
+      "severity": "error",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[1, 7]"
+    },
+    {
+      "check": "intervalo:participacao_mmgd_pct",
+      "dimension": "intervalo",
+      "severity": "warning",
+      "passed": false,
+      "observed": 376,
+      "expected": 0,
+      "detail": "[0, 100]"
+    },
+    {
+      "check": "intervalo:ano",
+      "dimension": "intervalo",
+      "severity": "error",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[2016, 2100]"
+    },
+    {
+      "check": "intervalo:mes",
+      "dimension": "intervalo",
+      "severity": "error",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "[1, 12]"
+    },
+    {
+      "check": "volume_nao_vazio",
+      "dimension": "volume",
+      "severity": "error",
+      "passed": true,
+      "observed": 44160,
+      "expected": "> 0",
+      "detail": ""
+    },
+    {
+      "check": "join_sem_multiplicacao",
+      "dimension": "join",
+      "severity": "error",
+      "passed": true,
+      "observed": 44160,
+      "expected": 44160,
+      "detail": "linhas finais = horas de carga antes do JOIN"
+    },
+    {
+      "check": "join_cobertura_clima",
+      "dimension": "join",
+      "severity": "warning",
+      "passed": true,
+      "observed": 1.0,
+      "expected": ">= 0.95",
+      "detail": "fração das horas com clima correspondente"
+    },
+    {
+      "check": "areas_solicitadas_presentes",
+      "dimension": "completude",
+      "severity": "warning",
+      "passed": true,
+      "observed": 20,
+      "expected": 20,
+      "detail": ""
+    },
+    {
+      "check": "dias_com_24_horas_completas",
+      "dimension": "completude",
+      "severity": "warning",
+      "passed": true,
+      "observed": 0,
+      "expected": 0,
+      "detail": "pares (área, dia) sem 24 horas ou com hora de 1 intervalo"
+    }
+  ],
+  "resumo_verificacoes": {
+    "total": 42,
+    "aprovadas": 41,
+    "falhas_bloqueantes": 0,
+    "avisos": 1
+  },
+  "particoes_gravadas": [
+    {
+      "ano": 2026,
+      "mes": 8,
+      "linhas": 14880,
+      "arquivos": [
+        "data_0.parquet"
+      ]
+    },
+    {
+      "ano": 2026,
+      "mes": 9,
+      "linhas": 14400,
+      "arquivos": [
+        "data_0.parquet"
+      ]
+    },
+    {
+      "ano": 2026,
+      "mes": 10,
+      "linhas": 14880,
+      "arquivos": [
+        "data_0.parquet"
+      ]
+    }
+  ],
+  "dataset": {
+    "linhas_no_dataset": 44160,
+    "compressao": [
+      "SNAPPY"
+    ]
+  },
+  "erros": [],
+  "fim_utc": "2026-11-23T08:08:18+00:00",
+  "duracao_s": 113.07
+}

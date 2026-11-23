@@ -1,0 +1,83 @@
+{
+ "_origem": "GET https://apicarga.ons.org.br/prd/cargaverificada?dat_inicio=2026-10-11&dat_fim=2026-10-12&cod_areacarga=PA em 2026-11-12 (6 dos 96 registros, valores sem alteracao)",
+ "payload": [
+  {
+   "cod_areacarga": "PA",
+   "din_atualizacao": "2026-10-31T03:20:33.510Z",
+   "dat_referencia": "2026-10-11",
+   "din_referenciautc": "2026-10-11T03:30:00.000Z",
+   "val_cargaglobal": 4140.3345,
+   "val_cargaglobalcons": 4140.3345,
+   "val_cargaglobalsmmgd": 4140.3145,
+   "val_cargasupervisionada": 4140.3145,
+   "val_carganaosupervisionada": 0,
+   "val_cargammgd": 0.02,
+   "val_consistencia": 0
+  },
+  {
+   "cod_areacarga": "PA",
+   "din_atualizacao": "2026-10-31T03:20:33.510Z",
+   "dat_referencia": "2026-10-11",
+   "din_referenciautc": "2026-10-11T04:00:00.000Z",
+   "val_cargaglobal": 4129.3213,
+   "val_cargaglobalcons": 4129.3213,
+   "val_cargaglobalsmmgd": 4129.3013,
+   "val_cargasupervisionada": 4129.3013,
+   "val_carganaosupervisionada": 0,
+   "val_cargammgd": 0.02,
+   "val_consistencia": 0
+  },
+  {
+   "cod_areacarga": "PA",
+   "din_atualizacao": "2026-10-31T03:20:33.510Z",
+   "dat_referencia": "2026-10-11",
+   "din_referenciautc": "2026-10-11T04:30:00.000Z",
+   "val_cargaglobal": 4092.3135,
+   "val_cargaglobalcons": 4092.3135,
+   "val_cargaglobalsmmgd": 4092.2935,
+   "val_cargasupervisionada": 4092.2935,
+   "val_carganaosupervisionada": 0,
+   "val_cargammgd": 0.02,
+   "val_consistencia": 0
+  },
+  {
+   "cod_areacarga": "PA",
+   "din_atualizacao": "2026-10-31T03:20:33.510Z",
+   "dat_referencia": "2026-10-11",
+   "din_referenciautc": "2026-10-11T05:00:00.000Z",
+   "val_cargaglobal": 4058.3997,
+   "val_cargaglobalcons": 4058.3997,
+   "val_cargaglobalsmmgd": 4058.3796,
+   "val_cargasupervisionada": 4058.3796,
+   "val_carganaosupervisionada": 0,
+   "val_cargammgd": 0.02,
+   "val_consistencia": 0
+  },
+  {
+   "cod_areacarga": "PA",
+   "din_atualizacao": "2026-10-31T03:20:33.510Z",
+   "dat_referencia": "2026-10-11",
+   "din_referenciautc": "2026-10-11T15:30:00.000Z",
+   "val_cargaglobal": 3832.8232,
+   "val_cargaglobalcons": 3832.8232,
+   "val_cargaglobalsmmgd": 2599.3909,
+   "val_cargasupervisionada": 2599.3909,
+   "val_carganaosupervisionada": 0,
+   "val_cargammgd": 1233.4323,
+   "val_consistencia": 0
+  },
+  {
+   "cod_areacarga": "PA",
+   "din_atualizacao": "2026-10-31T03:20:33.510Z",
+   "dat_referencia": "2026-10-11",
+   "din_referenciautc": "2026-10-11T16:00:00.000Z",
+   "val_cargaglobal": 3830.812,
+   "val_cargaglobalcons": 3830.812,
+   "val_cargaglobalsmmgd": 2597.2441,
+   "val_cargasupervisionada": 2597.2441,
+   "val_carganaosupervisionada": 0,
+   "val_cargammgd": 1233.5677,
+   "val_consistencia": 0
+  }
+ ]
+}

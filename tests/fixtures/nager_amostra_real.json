@@ -1,0 +1,33 @@
+{
+ "_origem": "GET https://date.nager.at/api/v3/PublicHolidays/2026/BR em 2026-11-12 (2 dos 15 feriados; campo name do 2o item abreviado na captura)",
+ "payload": [
+  {
+   "date": "2026-01-01",
+   "localName": "Confraternização Universal",
+   "name": "New Year's Day",
+   "countryCode": "BR",
+   "fixed": false,
+   "global": true,
+   "counties": null,
+   "launchYear": null,
+   "types": [
+    "Public"
+   ]
+  },
+  {
+   "date": "2026-07-09",
+   "localName": "Revolução Constitucionalista de 1932",
+   "name": "Constitutionalist Revolution of 1932",
+   "countryCode": "BR",
+   "fixed": false,
+   "global": false,
+   "counties": [
+    "BR-SP"
+   ],
+   "launchYear": null,
+   "types": [
+    "Public"
+   ]
+  }
+ ]
+}
