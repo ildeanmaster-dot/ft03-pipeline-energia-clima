@@ -7,6 +7,11 @@ por ano/mês, com relatório de qualidade em JSON.
 **Pergunta respondida:** como temperatura e umidade se relacionam com a carga de energia
 elétrica, por área de carga e por hora, e se feriados alteram esse padrão.
 
+**Resultado entregue** (execução de 23/11/2026, período de 01/08 a 31/10/2026): `output/dataset/`
+com 44.160 linhas (20 áreas × 92 dias × 24 horas) em 3 partições Parquet Snappy, e
+`output/reports/quality_report.json` com `success_with_warnings`: 41 de 42 verificações
+aprovadas e 1 aviso explicado na seção 9.
+
 ## 1. Fontes de dados
 
 | | API | Domínio | Provedor | Autenticação | Limite de taxa |
@@ -25,8 +30,8 @@ Fatos conferidos em 12/11/2026 na documentação e em chamadas reais:
   (área PA, 01/06 a 30/09/2026: vieram 107 de 122 dias). O pipeline pede um mês por vez,
   confere os dias recebidos e divide a janela quando falta algum.
 - **Open-Meteo** — `GET https://archive-api.open-meteo.com/v1/archive`. O objeto `hourly`
-  traz arrays paralelos (`time[]` e um array por variável). Uso gratuito apenas não
-  comercial, licença CC BY 4.0. A coordenada devolvida é a do ponto de grade mais próximo,
+  traz arrays paralelos (`time[]` e um array por variável). Uso gratuito só para
+  fins não comerciais, licença CC BY 4.0. A coordenada devolvida é a do ponto de grade mais próximo,
   por isso a área é identificada pelo que foi pedido, e não pela coordenada da resposta.
 - **Nager.Date** — `GET https://date.nager.at/api/v3/PublicHolidays/{ano}/BR`. Cada feriado
   tem os arrays `types[]` e `counties[]` (UF no formato `BR-SP`; `null` em feriado nacional).
@@ -93,7 +98,8 @@ cd ft03-pipeline-energia-clima
 ./run.sh
 ```
 
-O `run.sh` cria o ambiente virtual, instala o `requirements.txt` e roda o pipeline.
+O `run.sh` cria o ambiente virtual, instala o `requirements.txt` e roda o pipeline. A execução
+completa leva cerca de 2 minutos (113 s em 23/11/2026, 141 chamadas às APIs).
 No Windows, use o Git Bash, o script `.\run.ps1` ou, no PowerShell:
 
 ```powershell
@@ -103,14 +109,15 @@ $env:PYTHONPATH = "src"; .venv\Scripts\python -m pipeline.main
 ```
 
 Opções: `./run.sh --inicio 2026-10-01 --fim 2026-10-31 --areas PA,SP` ou
-`./run.sh --skip-extract` (reaproveita `data/raw` sem chamar as APIs). No PowerShell, as mesmas
+`./run.sh --skip-extract` (reaproveita `data/raw` sem chamar as APIs; processa tudo o que
+estiver em `data/raw`, sem filtrar por `--inicio`, `--fim` ou `--areas`, DT-18). No PowerShell, as mesmas
 opções valem para `.\run.ps1`.
 
 > **Teste rápido sem alterar o `output/` versionado:** cada execução substitui a partição do mês
 > inteiro. Rodar só um dia ou só algumas áreas troca o conteúdo daquele mês em `output/`. Para
 > testar, mande a saída para outra pasta (`data/teste-rapido/` não é versionada):
 >
-> - PowerShell: `$env:OUTPUT_DIR="data/teste-rapido/output"; $env:RAW_DIR="data/teste-rapido/raw"; .\run.ps1 --inicio 2026-10-01 --fim 2026-10-01 --areas PA`
+> - PowerShell: `$env:OUTPUT_DIR="data/teste-rapido/output"; $env:RAW_DIR="data/teste-rapido/raw"; .\run.ps1 --inicio 2026-10-01 --fim 2026-10-01 --areas PA; Remove-Item Env:OUTPUT_DIR, Env:RAW_DIR`
 > - Git Bash: `OUTPUT_DIR=data/teste-rapido/output RAW_DIR=data/teste-rapido/raw ./run.sh --inicio 2026-10-01 --fim 2026-10-01 --areas PA`
 >
 > Resultado esperado: `Status final: success` e o `git status` sem mudanças em `output/`. Se o
@@ -119,8 +126,13 @@ opções valem para `.\run.ps1`.
 Testes (não usam internet; resultado esperado: `43 passed`):
 Linux/macOS `.venv/bin/python -m pytest -q` · Windows `.venv\Scripts\python -m pytest -q`.
 
-A execução completa com o período padrão gera de novo os mesmos Parquet de `output/`; no
-`git status` muda só `output/reports/quality_report.json` (tempos e identificação da execução).
+A execução completa com o período padrão gera de novo os mesmos Parquet de `output/`, enquanto
+as fontes não revisarem os dados (o ONS atualiza registros depois do dia; ver
+`din_atualizacao_ons`). No `git status` muda só `output/reports/quality_report.json` (tempos e
+identificação da execução).
+
+Resumo do dataset gravado: `.venv/bin/python scripts/inspecionar_dataset.py`
+(Windows: `.venv\Scripts\python scripts\inspecionar_dataset.py`).
 
 ### Variáveis de ambiente
 
@@ -139,15 +151,17 @@ Todas são opcionais; copie `.env.example` para `.env` para alterar. O `.env` n�
 | `RAW_DIR` / `OUTPUT_DIR` | `data/raw` / `output` | Pastas |
 
 **Credenciais:** as três APIs são abertas e não exigem chave. A única credencial possível
-(`OPEN_METEO_API_KEY`, opcional) é lida só do ambiente, nunca aparece em log (as URLs são
-mascaradas) e o `.env` está no `.gitignore`.
+(`OPEN_METEO_API_KEY`, opcional) é lida só do ambiente e o `.env` está no `.gitignore`. As
+mensagens de erro do pipeline mascaram a chave, mas o aviso de retentativa do `urllib3` e o
+rastreamento de erro no log ainda podem mostrar a URL completa (DT-17). A entrega não usa chave.
 
 ## 4. Resiliência na extração
 
 - **Controle de taxa:** intervalo mínimo entre chamadas, por API (`RateLimiter`). Para ONS
   e Nager.Date, que não publicam limite, o padrão é conservador (1 chamada por segundo).
 - **Retentativas:** `urllib3.Retry` para 429, 500, 502, 503 e 504, timeout e queda de
-  conexão; backoff exponencial com jitter; respeita `Retry-After` (até 120 s).
+  conexão; backoff exponencial com jitter a partir da segunda tentativa (a primeira repetição
+  é imediata, padrão do `urllib3`); respeita `Retry-After` (até 120 s).
 - **Erros permanentes** (400, 401, 403, 404) falham na hora, com mensagem clara.
 - **Timeout explícito** de conexão e de leitura em toda chamada.
 - **Resposta incompleta do ONS:** detectada pela cobertura de dias e resolvida dividindo a janela.
@@ -171,7 +185,7 @@ Granularidade: **1 linha = 1 área de carga × 1 hora (UTC)**. Chave: (`cod_area
 | `temperatura_c` | DOUBLE | Origem (Open-Meteo) | `temperature_2m` |
 | `umidade_relativa_pct` | DOUBLE | Origem (Open-Meteo) | `relative_humidity_2m` |
 | `sensacao_termica_c` | DOUBLE | Origem (Open-Meteo) | `apparent_temperature` |
-| `precipitacao_mm` | DOUBLE | Origem (Open-Meteo) | `precipitation` |
+| `precipitacao_mm` | DOUBLE | Origem (Open-Meteo) | `precipitation`: chuva acumulada na hora **anterior** a `hora_utc` (*preceding hour sum*) |
 | `clima_disponivel` | BOOLEAN | Cálculo | Há clima correspondente para a hora |
 | `eh_feriado` | BOOLEAN | Cálculo | Feriado público nacional ou da UF na data de referência |
 | `nome_feriado` | VARCHAR | Origem (Nager.Date) | Nome local; nulo quando não é feriado |
@@ -236,7 +250,8 @@ mesmo dicionário não admite valor negativo em `val_cargammgd` (versão 1.1, 30
 
 - Parquet com compressão Snappy em `output/dataset/ano=AAAA/mes=M/` (partição Hive pela
   `dat_referencia`). `ano` e `mes` ficam no nome das pastas; leia com
-  `read_parquet('output/dataset/**/*.parquet', hive_partitioning = true)`.
+  `read_parquet('output/dataset/**/*.parquet', hive_partitioning = true)`. Nessa leitura, `ano` e
+  `mes` chegam como BIGINT; para INTEGER, acrescente `hive_types = {'ano': INTEGER, 'mes': INTEGER}`.
 - **Idempotência:** as partições do período processado são apagadas e regravadas por
   inteiro; as demais não são tocadas. Rodar duas vezes o mesmo período não duplica dados
   (coberto por teste). Processe meses completos: reprocessar parte de um mês substitui a
@@ -248,7 +263,20 @@ mesmo dicionário não admite valor negativo em `val_cargammgd` (versão 1.1, 30
   por área. Trocar a coordenada é editar `config/areas_carga.csv`.
 - "Área geoelétrica" do ONS não é necessariamente o limite exato da UF.
 - `temperature_2m` é o valor no início da hora; a carga é a média da hora.
-- Feriados municipais não entram (a API traz nacionais e estaduais).
+- `precipitacao_mm` é a chuva acumulada na hora anterior a `hora_utc` (o Open-Meteo informa a
+  soma da hora precedente), e não a chuva da mesma hora da carga.
+- Feriados municipais não entram. A Nager.Date traz para o Brasil em 2026 um único feriado
+  estadual (SP, 09/07); no período analisado, `eh_feriado` reflete só os feriados nacionais de
+  07/09 e 12/10.
+- `variacao_carga_d1_pct` fica nula no primeiro dia de cada execução, porque o dia anterior não
+  é extraído.
 - ONS e Nager.Date não publicam limite de taxa; o intervalo adotado é uma escolha conservadora.
 - Em algumas horas a carga MMGD informada pelo ONS é maior que a carga global da área, e a participação passa de 100%. Na execução de 23/11/2026 (01/08 a 31/10/2026) foram 376 horas: MS 238, MT 109, PI 25 e RO 4, com máximo de 185%. O valor é mantido como veio da fonte e a regra de intervalo registra aviso.
 - Períodos muito recentes podem vir sem clima no arquivo histórico do Open-Meteo; nesse caso as horas ficam com `clima_disponivel = false` e a cobertura aparece como aviso no relatório.
+
+## 10. Licença
+
+Código e documentação sob a licença [MIT](LICENSE). Os dados em `output/` derivam das fontes e
+seguem as licenças delas, com citação obrigatória: ONS (CC-BY) e Open-Meteo (CC BY 4.0, uso não
+comercial no plano gratuito). Os nomes de feriados vêm da Nager.Date (licença a confirmar na
+página oficial).

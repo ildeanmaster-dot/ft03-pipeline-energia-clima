@@ -1,6 +1,6 @@
 # Testes
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 43 testes com pytest. Nenhum depende das APIs ao vivo: usam dados montados em
 `tests/conftest.py`, amostras reais em `tests/fixtures/` e servidores HTTP locais.
@@ -50,10 +50,9 @@ mas necessária para `python -m pipeline.main`.
   centróide do PA em 11/10/2026 e 2 dos 15 feriados de 2026.
 
 ## 5. O que os testes não cobrem
-- As APIs reais ao vivo (DT-01).
-- `run.sh` e `run.ps1` (conferidos à mão; `run.ps1` ainda não, DT-03).
+- As APIs reais ao vivo (conferidas à mão na execução de 23/11/2026).
+- `run.sh` e `run.ps1` (conferidos à mão em 23/11/2026: DT-03 e DT-16).
 - Volume grande e várias threads na gravação (DT-08).
-- Windows (DT-05) e o `duckdb` 2.0.0 no processador da máquina do projeto (DT-15).
 
 ## 6. Regras para novos testes
 1. Sem chamada de rede externa.

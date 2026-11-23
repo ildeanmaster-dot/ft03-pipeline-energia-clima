@@ -1,6 +1,6 @@
 # Fontes de dados
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 Tudo aqui foi conferido em 12/11/2026 na documentação indicada ou em chamada real. O que não
 está publicado aparece como "não publicado"; o que não foi conferido, como **[a validar]**.
@@ -52,7 +52,9 @@ O projeto usa as 20 áreas geoelétricas de nome igual a uma UF (ver seção 4).
 - **Qualidade observada.** Outubro/2026 em 10 áreas: 48 registros em todos os dias, sem nulos,
   sem negativos, sem chaves repetidas.
 - **JSON inválido quando falta valor:** relato de terceiros, não reproduzido **[a validar]**;
-  o pipeline trata o caso.
+  se acontecer, a extração para com `ExtractionError` (nada é reparado).
+- **`precipitation`:** soma da hora anterior (*preceding hour sum*); as outras 3 variáveis são
+  instantâneas (documentação do Open-Meteo, consultada em 23/11/2026).
 
 Outro endpoint da mesma API, não usado: `/cargaprogramada` (desde 05/03/2021, segundo o Swagger).
 

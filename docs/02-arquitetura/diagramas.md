@@ -1,6 +1,6 @@
 # Diagramas
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 Os diagramas estão em Mermaid. No VS Code, instale a extensão recomendada
 "Markdown Preview Mermaid Support" e abra a pré-visualização (Ctrl+Shift+V). O GitHub
@@ -96,7 +96,7 @@ A tabela entregue e as tabelas de apoio que a formam.
 ```mermaid
 erDiagram
     DIM_AREAS ||--o{ CARGA_CLIMA_HORARIA : "cod_areacarga"
-    CLIMA |o--|| CARGA_CLIMA_HORARIA : "area + hora_utc"
+    CLIMA |o--|| CARGA_CLIMA_HORARIA : "área + hora_utc"
     FERIADOS |o--o{ CARGA_CLIMA_HORARIA : "dat_referencia + uf"
     CARGA_CLIMA_HORARIA {
         varchar cod_areacarga PK

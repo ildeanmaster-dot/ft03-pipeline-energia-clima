@@ -9,8 +9,8 @@ pelos menus do VS Code (Run Task, F5, Testing) ainda está "A validar".
 ## 1. Preparar (uma vez)
 | # | Ação | Resultado esperado |
 |---|---|---|
-| 1 | Conferir a pasta do projeto: `D:\Portifolio\DesafioPythonFT03Projeto1` (gravada em 12/11/2026) | A pasta contém `src`, `sql`, `tests`, `docs`, `.vscode`, `README.md` |
-| 2 | No Explorador de Arquivos do Windows, renomear a pasta `_vscode` para `.vscode` (ou, no PowerShell, dentro da pasta: `Rename-Item _vscode .vscode`) | Existe a pasta `.vscode` com 4 arquivos `.json`. A ferramenta que gravou os arquivos não pode escrever em `.vscode`, por isso o nome provisório |
+| 1 | Clonar o repositório (`git clone https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima.git`) | A pasta contém `src`, `sql`, `tests`, `docs`, `.vscode`, `README.md` |
+| 2 | — | (passo retirado: a pasta `.vscode` já vem no repositório) |
 | 3 | No PowerShell: `python --version` | Versão **3.11 ou superior**. Com 3.10 ou anterior o `duckdb` 2.0.0 não instala |
 | 4 | VS Code → **File > Open Folder** → escolher essa pasta | O Explorer mostra a raiz do projeto |
 | 5 | Aceitar a sugestão de instalar as extensões recomendadas | Python, Pylance, Python Debugger e Markdown Preview Mermaid Support instaladas |
@@ -80,16 +80,10 @@ parada depois de `run_transformations` e consulte pelo Debug Console:
 | Acrescentar uma API | Função `extract_*` em `extract.py` + entrada em `run_extraction` (`main.py`) + SQL | `fontes-de-dados.md`; teste |
 | Ajustar retentativa ou taxa | `.env` (valores) ou `build_retry` (`http_client.py`) | `tests/test_http_client.py` |
 
-## 7. Git (iniciado em 23/11/2026; remoto: https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima)
-| # | Ação | Resultado esperado |
-|---|---|---|
-| 1 | `git init -b main` | Pasta `.git` criada |
-| 2 | `git status` | Não lista `.env`, `.venv/`, `data/raw/` nem `insumos/*.pdf` |
-| 3 | `git add .` e `git commit -m "Pipeline carga x clima x feriados"` | Commit criado |
-| 4 | Criar o repositório público no GitHub e `git remote add origin <url>` | `git remote -v` mostra a URL |
-| 5 | `git push -u origin main` | Arquivos visíveis no GitHub |
-
-Faça o commit do `output/` só depois da execução completa conferida.
+## 7. Git (remoto: https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima)
+Antes de cada commit: `git status` não pode listar `.env`, `.venv/`, `data/` nem
+`insumos/*.pdf`. Adicione os arquivos pelo nome, não com `git add .`. Só faça o commit do
+`output/` depois de uma execução completa conferida.
 
 ## 8. Ao encerrar uma sessão de trabalho
 1. Rodar os testes.

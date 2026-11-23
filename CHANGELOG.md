@@ -1,5 +1,12 @@
 # Histórico de mudanças
 
+## 0.4.1 — 23/11/2026
+- Licença MIT (`LICENSE`) para código e documentação; README seção 10 e `custos-e-licencas.md` atualizados (D-16).
+- Validação completa por 3 revisores independentes (código, dados, documentação): nenhum achado bloqueante; recálculo independente das 44.160 linhas sem divergência.
+- Documentação alinhada ao estado de 23/11: checklist marcado, visão geral, riscos, roadmap, termo, operação, testes e guia do VS Code sem "pendente"/"não testado"; README com o resultado entregue, tempo de execução e resumo do dataset.
+- Documentado: precipitação é a soma da hora anterior (DT-19); `--skip-extract` não filtra período e áreas (DT-18); a chave opcional pode aparecer no log do `urllib3` (DT-17); `ano`/`mes` lidos como BIGINT; só feriados nacionais no período; nova RN-47 (MMGD fora da faixa bloqueia).
+- `.gitattributes` com `*.sh text eol=lf`; `insumos/README.md` sem indicar onde o PDF está guardado.
+
 ## 0.4.0 — 23/11/2026
 - Revisão de complexidade (D-15). Retirado o reparo automático de JSON com valor ausente (caso nunca reproduzido): resposta inválida para a extração com `ExtractionError`.
 - Clima repetido (mesma área e hora): vence a extração mais recente, não mais a maior temperatura (RN-46, teste novo).
@@ -28,7 +35,7 @@
 - `duckdb` 2.0.0 confirmado no Windows desta máquina (P-08 e DT-15 encerrados); `.vscode` renomeada (P-09).
 
 ## 0.2.1 — 12/11/2026
-- Projeto gravado em `D:\Portifolio\DesafioPythonFT03Projeto1` (62 arquivos, conferidos por md5).
+- Projeto organizado em pasta local (62 arquivos).
 - Configuração do VS Code gravada em `_vscode` (renomear para `.vscode`).
 - Requisito de Python corrigido para 3.11 ou superior (exigência do `duckdb` 2.0.0).
 - Registrado: `duckdb` 2.0.0 falha por instrução ilegal no Linux remoto desta máquina (sem AVX); 1.5.6 funciona, 43 testes passando (DT-15, P-08).

@@ -20,13 +20,17 @@ Versão 1.1 · 23/11/2026
 | DT-14 | Camada bruta apagada a cada execução | Não há histórico das extrações anteriores | Operação | Baixa | Pasta por `run_id` se o histórico passar a ser necessário | — | Aceito |
 | DT-15 | `duckdb` 2.0.0 encerra com "Illegal instruction" ao ser importado no Linux da sessão remota desta máquina (Intel Core i7-870, sem AVX). O `duckdb` 1.5.6 importa e os 43 testes passam | O pipeline pode não rodar nesta máquina com a versão fixada; comportamento no Windows não testado. A linha 1.5 chegou ao fim da vida em 01/11/2026, segundo o calendário do DuckDB | Compatibilidade | Alta | Testar `import duckdb` no Windows. Se falhar, decidir entre fixar `duckdb==1.5.6` ou executar em outra máquina (P-08) | — | Resolvido (23/11/2026: no Windows nativo o 2.0.0 importa, 43 testes passam e o pipeline roda; a falha é só do Linux remoto, também com 2.0.1) |
 | DT-16 | O teste rápido pela linha de comando (`run.ps1`, `run.sh` ou `python -m pipeline.main --inicio 2026-10-01 --fim 2026-10-01 --areas PA`) grava em `output/` e substitui a partição `mes=10` versionada (20 áreas) por 24 linhas do PA, além do `quality_report.json` | Quem seguir o README pode estragar o `output/` versionado sem perceber | Operação | Alta | Orientar `OUTPUT_DIR` e `RAW_DIR` separados no README e nos scripts, ou restaurar com `git checkout -- output/` | — | Mitigado (23/11/2026): README e `CLAUDE.md` orientam desviar a saída com `OUTPUT_DIR` e `RAW_DIR` para `data/teste-rapido/` e restaurar com `git checkout -- output/`; testado no PowerShell e no Git Bash, sem mudança em `output/`. O comportamento do pipeline não mudou (D-10) |
+| DT-17 | Com `OPEN_METEO_API_KEY` definida, o aviso de retentativa do `urllib3` e a causa encadeada impressa por `logger.exception` mostram a URL com a chave; o `redact` só mascara a mensagem da exceção | A chave pode aparecer no log (a entrega não usa chave) | Segurança | Média | Filtro de log que aplique `redact` e mensagem sem a causa encadeada; teste com a chave falsa | — | Aberto (validação de 23/11/2026) |
+| DT-18 | `--skip-extract` processa tudo o que está em `RAW_DIR`, sem filtrar por período e áreas, e o relatório registra o período e as áreas pedidos | Reprocessar com o bruto de outra execução pode regravar partições não pedidas | Operação | Média | Filtrar a camada bruta pelo período e pelas áreas no SQL, com teste | — | Aberto (documentado no README) |
+| DT-19 | `precipitacao_mm` é a chuva acumulada na hora anterior a `hora_utc` (Open-Meteo: *preceding hour sum*), e não a da hora da carga | Correlação chuva × carga deslocada em 1 hora | Modelo | Média | Juntar a precipitação de `hora_utc + 1 h`, com teste, RN nova e nova execução | — | Aberto (documentado no README e no dicionário) |
 
 ## Resumo (23/11/2026)
 | Status | Quantidade |
 |---|---|
-| Aberto | 3 (DT-09, DT-10, DT-11) |
+| Aberto | 6 (DT-09, DT-10, DT-11, DT-17, DT-18, DT-19) |
 | Mitigado | 2 (DT-08, DT-16) |
 | Aceito | 5 (DT-06, DT-07, DT-12, DT-13, DT-14) |
 | Resolvido | 6 (DT-01, DT-02, DT-03, DT-04, DT-05, DT-15) |
 
-Nenhum débito de prioridade Alta segue aberto. Os abertos são de prioridade Baixa.
+Nenhum débito de prioridade Alta segue aberto. DT-17, DT-18 e DT-19 (Média) vieram da validação
+completa de 23/11/2026 e ficam para depois da entrega; os demais abertos são de prioridade Baixa.

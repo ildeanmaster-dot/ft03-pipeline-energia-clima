@@ -1,6 +1,6 @@
 # Regras de negócio
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 Origem: **Enunciado** (PDF), **Fonte** (documentação ou comportamento conferido da API),
 **Projeto** (decisão deste projeto, registrada em `docs/00-gestao/decisoes-e-pendencias.md`).
@@ -27,7 +27,7 @@ parâmetro a calibrar após a execução real.
 | RN-11 | O clima é extraído com um dia a mais que o período, limitado à data de hoje | Fonte (OB-02) | Implementado | `extract_open_meteo` |
 | RN-12 | Os arrays horários do Open-Meteo precisam ter o mesmo tamanho de `time` e o total de horas esperado | Projeto | Implementado | `validate_open_meteo` |
 | RN-13 | Intervalo mínimo entre chamadas: 1 s (ONS), 0,5 s (Open-Meteo), 1 s (Nager.Date) | Projeto; limite do Open-Meteo na fonte | Provisório | `.env.example`, `load_settings` |
-| RN-14 | 429, 500, 502, 503, 504, timeout e queda de conexão são repetidos até 5 vezes, com espera crescente; `Retry-After` é respeitado até 120 s | Enunciado (retentativas); valores do Projeto | Implementado | `build_retry` em `http_client.py` |
+| RN-14 | 429, 500, 502, 503, 504, timeout e queda de conexão são repetidos até 5 vezes, com espera crescente a partir da segunda repetição (a primeira é imediata, padrão do `urllib3`); `Retry-After` é respeitado até 120 s | Enunciado (retentativas); valores do Projeto | Implementado | `build_retry` em `http_client.py` |
 | RN-15 | Demais erros 4xx não são repetidos | Projeto | Implementado | `HttpClient.get_text` |
 | RN-16 | Resposta que não é JSON válido interrompe a extração; nada é reparado (o reparo de valor ausente foi retirado em 23/11/2026: o caso nunca foi reproduzido) | Projeto (R-05) | Implementado | `parse_json` |
 | RN-17 | A camada bruta guarda o retorno da API sem alteração, com o que foi pedido e quando | Projeto | Implementado | `write_raw` |
@@ -50,28 +50,29 @@ parâmetro a calibrar após a execução real.
 | RN-29 | Dois feriados no mesmo dia e UF viram uma linha, com os nomes unidos por " / " | Projeto | Implementado | `t3_feriados` |
 | RN-30 | O feriado é associado pela data de referência do ONS, não pela data UTC | Projeto | Implementado | T4 |
 | RN-31 | Participação da MMGD = 100 × carga MMGD ÷ carga global; carga zero resulta em nulo | Projeto | Implementado | T5 |
-| RN-32 | Variação D-1 = variação percentual contra a mesma hora 24 h antes; sem o dia anterior, nulo | Projeto | Implementado | T5 |
+| RN-32 | Variação D-1 = variação percentual contra a mesma hora 24 h antes; sem o dia anterior, nulo (o primeiro dia de cada execução fica nulo) | Projeto | Implementado | T5 |
 | RN-33 | Dia da semana no padrão ISO (1 = segunda, 7 = domingo); fim de semana = 6 ou 7 | Projeto | Implementado | T5 |
 
 ## 4. Qualidade e publicação
 | ID | Regra | Origem | Status | Onde está |
 |---|---|---|---|---|
 | RN-34 | Schema final igual ao contrato (nomes e tipos) | Enunciado | Implementado | `CONTRACT`, `check_schema` em `quality.py` |
-| RN-35 | Colunas obrigatórias sem nulos; colunas de clima com até 5% de nulos (aviso) | Enunciado (null ratio); limite do Projeto | Provisório | `CONTRACT`, `check_nulls` |
+| RN-35 | Colunas obrigatórias sem nulos; colunas de clima com até 5% de nulos (aviso) | Enunciado (null ratio); limite do Projeto | Implementado | `CONTRACT`, `check_nulls` |
 | RN-36 | Chave (`cod_areacarga`, `hora_utc`) sem repetição | Enunciado | Implementado | `check_uniqueness` |
-| RN-37 | Intervalos: temperatura −20 a 55 °C, sensação −30 a 65 °C, umidade 0 a 100%, precipitação 0 a 500 mm | Enunciado (teste de intervalo); limites do Projeto | Provisório | `CONTRACT`, `check_ranges` |
-| RN-38 | Carga entre 0 e 100.000 MW e participação MMGD entre 0 e 100% são só aviso | Fonte (OB-04) | Provisório | `CONTRACT` (`range_severity="warning"`) |
+| RN-37 | Intervalos: temperatura −20 a 55 °C, sensação −30 a 65 °C, umidade 0 a 100%, precipitação 0 a 500 mm | Enunciado (teste de intervalo); limites do Projeto | Implementado | `CONTRACT`, `check_ranges` |
+| RN-38 | Carga entre 0 e 100.000 MW e participação MMGD entre 0 e 100% são só aviso | Fonte (OB-04) | Implementado | `CONTRACT` (`range_severity="warning"`) |
+| RN-47 | Carga MMGD fora de 0 a 100.000 MW **bloqueia** a publicação | Fonte (dicionário do ONS v1.1: `val_cargammgd` não admite negativo; P-10) | Implementado | `CONTRACT` |
 | RN-39 | O JOIN não pode multiplicar linhas: linhas finais = horas de carga | Projeto | Implementado | `check_join_and_volume` |
-| RN-40 | Menos de 95% das horas com clima gera aviso | Projeto | Provisório | `check_join_and_volume` |
+| RN-40 | Menos de 95% das horas com clima gera aviso | Projeto | Implementado | `check_join_and_volume` |
 | RN-41 | Saída vazia é erro | Projeto | Implementado | `check_join_and_volume` |
 | RN-42 | Verificação com severidade "erro" que falha **bloqueia** a gravação do Parquet | Projeto (D-09) | Implementado | `run_pipeline` em `main.py` |
-| RN-43 | O relatório é gravado sempre, inclusive quando a execução falha | Projeto | Implementado | bloco `finally` de `run_pipeline` |
+| RN-43 | Com configuração válida, o relatório é gravado sempre, inclusive quando a execução falha (configuração inválida sai com código 2, sem relatório) | Projeto | Implementado | bloco `finally` de `run_pipeline` |
 | RN-44 | Reprocessar um período substitui por inteiro as partições (ano, mês) envolvidas e não toca as demais | Projeto (D-10) | Implementado | `write_partitioned` em `persist.py` |
-| RN-45 | Nenhuma credencial aparece em log ou mensagem de erro | Enunciado (segurança) | Implementado | `redact` em `http_client.py` |
+| RN-45 | Nenhuma credencial aparece em log ou mensagem de erro | Enunciado (segurança) | Implementado nas mensagens de erro; o log do `urllib3` ainda pode mostrar a URL com a chave (DT-17) | `redact` em `http_client.py` |
 
 ## 5. Resumo por status
 | Status | Quantidade |
 |---|---|
-| Implementado | 41 |
-| Provisório | 5 (RN-13, RN-35, RN-37, RN-38, RN-40: limites a revisar com os valores da execução real) |
+| Implementado | 46 |
+| Provisório | 1 (RN-13: intervalo entre chamadas; ONS e Nager.Date não publicam limite) |
 | Pendente | 0 |

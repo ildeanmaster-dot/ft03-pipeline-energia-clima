@@ -1,9 +1,9 @@
 # Visão geral (para quem não é da área técnica)
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 ## O que este projeto faz
-Ele junta, de forma automática, três informações públicas sobre o Brasil e entrega uma única
+Ele junta automaticamente três informações públicas sobre o Brasil e entrega uma única
 tabela organizada, pronta para análise:
 
 1. **Quanto de energia elétrica cada estado consumiu**, hora a hora — do Operador Nacional do
@@ -39,8 +39,9 @@ respondida com confiança. É o trabalho de base que vem antes de qualquer gráf
   buscados, quantos foram descartados e por quê, e o resultado de cada conferência.
 
 ## Alcance
-- **Onde:** 20 estados (os que o ONS trata como uma área própria). Ficam de fora os estados
-  que o ONS agrupa, como Alagoas com Pernambuco e Bahia com Sergipe.
+- **Onde:** 19 estados e o Distrito Federal (os que o ONS trata como uma área própria). Ficam
+  de fora os estados que o ONS agrupa, como Alagoas com Pernambuco e Bahia com Sergipe, e o
+  Tocantins, que o ONS divide em partes.
 - **Quando:** de 1º de agosto a 31 de outubro de 2026, por padrão. O período pode ser trocado.
 
 ## Cuidados que tomamos
@@ -52,9 +53,12 @@ respondida com confiança. É o trabalho de base que vem antes de qualquer gráf
 ## Limites que é bom conhecer
 - O clima de cada estado é medido num único ponto, o centro geográfico do estado. Em estados
   grandes, esse ponto pode ficar longe de onde a maior parte das pessoas mora.
-- Feriados municipais não entram.
+- Feriados municipais não entram. No período padrão só há feriados nacionais (07/09 e 12/10).
+- A chuva de cada linha é a acumulada na hora anterior (é assim que o serviço de clima informa).
 - O uso gratuito do serviço de clima vale só para fins não comerciais.
 
 ## Situação
-O programa está pronto e testado com amostras reais. Falta a primeira execução completa com
-os três serviços e a publicação. Detalhes em `docs/00-gestao/estado-do-projeto.md`.
+Em 23/11/2026 o programa rodou com os três serviços para o período de 01/08 a 31/10/2026:
+44.160 linhas (20 áreas, hora a hora), 41 de 42 conferências aprovadas e 1 aviso explicado no
+README (seção 9). A tabela e o relatório estão publicados em `output/`. Detalhes em
+`docs/00-gestao/estado-do-projeto.md`.

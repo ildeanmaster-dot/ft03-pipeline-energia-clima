@@ -1,6 +1,6 @@
 # Observações e lições
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 Cada item traz o que foi observado, o que foi feito e a fonte (documentação ou teste, com data).
 
@@ -23,8 +23,7 @@ Cada item traz o que foi observado, o que foi feito e a fonte (documentação ou
 | OB-15 | `requests` não tem timeout padrão | Timeout de conexão e de leitura em toda chamada | Comportamento conhecido da biblioteca [a validar na doc] |
 | OB-16 | No PA, em 11/10/2026, a geração distribuída chegou a cerca de 32% da carga por volta de 15:00–16:00 UTC | Métrica `participacao_mmgd_pct`; caso usado em teste | Chamada real, 12/11/2026 |
 | OB-17 | Com schema fora do contrato, as outras verificações quebram (comparação de texto com número) | Falha de schema encerra as verificações dependentes e já bloqueia | Teste, 12/11/2026 |
-| OB-18 | O ambiente em que o código foi construído bloqueia os domínios das três APIs | Formato validado por amostras reais capturadas no navegador; execução real fica com o responsável | 12/11/2026 |
+| OB-18 | O ambiente de desenvolvimento não tinha acesso às três APIs | Formato validado por amostras reais; a execução real foi feita no Windows em 23/11/2026 | 12/11/2026 |
 | OB-19 | `duckdb` 2.0.0 exige Python 3.11 ou superior: com Python 3.10 o `pip` não encontra a versão | README e guia passaram a exigir 3.11+ | PyPI (`requires_python >=3.11.0`) e tentativa de instalação, 12/11/2026 |
-| OB-20 | No Linux da sessão remota desta máquina (Intel Core i7-870, só SSE4.2, sem AVX), `import duckdb` na versão 2.0.0 encerra com "Illegal instruction"; as versões 1.5.6 e 1.4.5 importam. Com 1.5.6 e Python 3.12, os 43 testes passam | Registrado como DT-15 e P-08; versão fixada mantida em 2.0.0 até o teste no Windows | Teste, 12/11/2026 |
-| OB-21 | A ferramenta de gravação remota recusa escrever em `.vscode` | Arquivos gravados em `_vscode`; renomear à mão (P-09) | Tentativa de gravação, 12/11/2026 |
-| OB-22 | O Linux da sessão remota desta máquina também não alcança os domínios das três APIs | A execução real precisa ser feita no Windows, pelo VS Code | Teste, 12/11/2026 |
+| OB-20 | Num ambiente Linux de teste com o processador da máquina do projeto (Intel Core i7-870, só SSE4.2, sem AVX), `import duckdb` na versão 2.0.0 encerra com "Illegal instruction"; as versões 1.5.6 e 1.4.5 importam. Com 1.5.6 e Python 3.12, os 43 testes passam | Registrado como DT-15 e P-08; versão fixada mantida em 2.0.0 até o teste no Windows | Teste, 12/11/2026 |
+| OB-22 | Um segundo ambiente Linux de teste também não alcançava as três APIs | A execução real foi feita no Windows em 23/11/2026 | Teste, 12/11/2026 |

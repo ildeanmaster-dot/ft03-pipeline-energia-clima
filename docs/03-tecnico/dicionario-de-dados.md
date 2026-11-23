@@ -1,6 +1,6 @@
 # Dicionário de dados
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 Classe: **Origem** = veio da API sem cálculo; **Cálculo** = fórmula rastreável;
 **Parâmetro** = `config/areas_carga.csv`. Não há coluna inferida.
@@ -24,7 +24,7 @@ Chave: (`cod_areacarga`, `hora_utc`).
 | 10 | `temperatura_c` | DOUBLE | Até 5% | Origem | Open-Meteo `temperature_2m` | °C |
 | 11 | `umidade_relativa_pct` | DOUBLE | Até 5% | Origem | Open-Meteo `relative_humidity_2m` | % |
 | 12 | `sensacao_termica_c` | DOUBLE | Até 5% | Origem | Open-Meteo `apparent_temperature` | °C |
-| 13 | `precipitacao_mm` | DOUBLE | Até 5% | Origem | Open-Meteo `precipitation` | mm |
+| 13 | `precipitacao_mm` | DOUBLE | Até 5% | Origem | Open-Meteo `precipitation`: soma da hora **anterior** a `hora_utc` (*preceding hour sum*; DT-19) | mm |
 | 14 | `clima_disponivel` | BOOLEAN | Não | Cálculo | Existe clima para (área, hora) e a temperatura não é nula | — |
 | 15 | `eh_feriado` | BOOLEAN | Não | Cálculo | Existe feriado público para (`dat_referencia`, `uf`) | — |
 | 16 | `nome_feriado` | VARCHAR | Sim | Origem | Nager.Date `localName`; nomes unidos por " / " se houver mais de um | — |
@@ -37,7 +37,8 @@ Chave: (`cod_areacarga`, `hora_utc`).
 | 23 | `mes` | INTEGER | Não | Cálculo | `month(dat_referencia)`; fica no nome da pasta | — |
 
 Observações:
-- `ano` e `mes` não ficam dentro do arquivo Parquet. Leia com `hive_partitioning = true`.
+- `ano` e `mes` não ficam dentro do arquivo Parquet. Leia com `hive_partitioning = true`; nessa
+  leitura eles chegam como BIGINT (para INTEGER: `hive_types = {'ano': INTEGER, 'mes': INTEGER}`).
 - `hora_utc` é o **início** da hora. A temperatura é o valor naquele instante; a carga é a média da hora.
 - O primeiro dia do período tem `variacao_carga_d1_pct` nulo em todas as horas.
 - `dat_referencia` é a data do ONS (dia de Brasília), não a data de `hora_utc`: as horas de

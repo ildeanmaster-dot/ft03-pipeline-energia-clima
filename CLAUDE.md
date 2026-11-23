@@ -63,4 +63,4 @@ No Git Bash/Linux: `./run.sh`. No PowerShell: `.\run.ps1`.
 Pipeline executado com as APIs reais no Windows (01/08 a 31/10/2026, 20 áreas): 44.160 linhas,
 3 partições, 41 de 42 verificações aprovadas e 1 aviso (participação MMGD acima de 100% em
 MS, MT, PI e RO). Repositório público: https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima
-Falta: enviar o link pelo formulário e validar o README num clone limpo.
+README validado num clone limpo (RNF-12). Falta: enviar o link pelo formulário.

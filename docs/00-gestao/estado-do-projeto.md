@@ -7,7 +7,9 @@ Versão 1.1 · 23/11/2026 (atualize a cada sessão de trabalho)
 **Resumo (23/11/2026):** o pipeline rodou com as APIs reais no Windows (Python 3.12,
 `duckdb` 2.0.0), o `output/` foi gerado e versionado e o repositório público foi criado:
 https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima. O README foi validado num
-clone limpo no Windows (RNF-12). Falta enviar o link pelo formulário e definir a licença.
+clone limpo no Windows (RNF-12). Licença MIT definida (D-16). Validação completa (código, dados e documentação) sem achado
+bloqueante; débitos de prioridade média registrados para depois da entrega (DT-17 a DT-19).
+Falta enviar o link pelo formulário.
 
 ## 1. Situação por etapa
 | Etapa | Situação | O que falta |
@@ -26,19 +28,19 @@ clone limpo no Windows (RNF-12). Falta enviar o link pelo formulário e definir 
 |---|---|---|
 | Configuração por ambiente (`src/pipeline/config.py`) | Implementado | Usado em todos os testes; `.env.example` |
 | Cliente HTTP (`http_client.py`) | Implementado e testado | `tests/test_http_client.py` (10 testes: 429, 503, 500, 404, timeout, conexão, taxa, mascaramento) |
-| Extração (`extract.py`) | Implementado, testado e executado com as APIs reais (23/11/2026) | `tests/test_extract.py` (9 testes), `tests/test_integracao_http.py` |
+| Extração (`extract.py`) | Implementado, testado e executado com as APIs reais (23/11/2026) | `tests/test_extract.py` (8 testes), `tests/test_integracao_http.py` |
 | Desaninhamento SQL (`sql/01_staging.sql`) | Implementado e testado | `tests/test_transform.py` (3 testes de UNNEST + amostras reais) |
-| Transformações T1 a T5 (`sql/02_transform.sql`) | Implementado e testado | `tests/test_transform.py` (12 testes) |
+| Transformações T1 a T5 (`sql/02_transform.sql`) | Implementado e testado | `tests/test_transform.py` (13 testes) |
 | Qualidade (`quality.py`) | Implementado e testado | `tests/test_quality.py` (6 testes) |
 | Persistência (`persist.py`) | Implementado e testado | `tests/test_persist_e_pipeline.py` (Snappy, partição, reexecução) |
 | Orquestração e relatório (`main.py`) | Implementado e testado | `tests/test_persist_e_pipeline.py`, `tests/test_integracao_http.py` |
-| `run.sh` | Testado em Linux | Execução numa cópia limpa em 12/11/2026 (falhou só na rede bloqueada) |
+| `run.sh` | Testado no Git Bash do Windows (23/11/2026) | Teste rápido com `success` (DT-16); no Linux, em 12/11/2026, rodou até a extração (rede bloqueada) |
 | `run.ps1` | Testado e corrigido no Windows (23/11/2026) | DT-03: teste rápido com `success`; corrigidos redirecionamento (`2>&1`), `--areas PA,SP` e falha do `pip` |
 | Configuração do VS Code (`.vscode/`) | Conferida (23/11/2026); teste rápido corrigido para gravar em `data/teste-rapido/` | DT-04: comandos das 6 tarefas e 4 depurações rodados no PowerShell; menus do VS Code a validar |
 | Dataset em `output/dataset/` | Gerado e versionado | 3 partições (ano=2026, mes=8, 9, 10), 44.160 linhas, Snappy |
 | Relatório em `output/reports/` | Gerado e versionado | `quality_report.json`: `success_with_warnings`, 41 de 42 aprovadas, 1 aviso |
 | Repositório público no GitHub | Criado (23/11/2026) | https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima |
-| Portal de acompanhamento | Pendente | Aguarda decisão (P-05) |
+| Portal de acompanhamento | Fora do escopo do desafio | P-05 |
 
 ## 3. Números (23/11/2026)
 | Medida | Valor |
@@ -65,4 +67,4 @@ clone limpo no Windows (RNF-12). Falta enviar o link pelo formulário e definir 
 | # | Ação | Quem |
 |---|---|---|
 | 1 | Enviar o link do repositório pelo formulário antes de 23/11/2026 08h00 | Freitas |
-| 2 | Definir a licença do repositório (`custos-e-licencas.md`) | Freitas || 3 | Clicar em Run Task, F5 e Testing no VS Code para fechar a parte "a validar" do DT-04 | Freitas |
+| 2 | Clicar em Run Task, F5 e Testing no VS Code para fechar a parte "a validar" do DT-04 | Freitas |

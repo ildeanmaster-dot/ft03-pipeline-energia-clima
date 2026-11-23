@@ -1,6 +1,6 @@
 # Qualidade de dados
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 ## 1. Onde a qualidade é controlada
 | Momento | Controle | Onde |
@@ -37,10 +37,11 @@ Versão 1.0 · 12/11/2026
 | `ano` | 2016 | 2100 | erro | Histórico do ONS começa em 2016 |
 | `mes` | 1 | 12 | erro | Calendário |
 | `carga_media_mw`, `carga_max_mw` | 0 | 100.000 | aviso | O dicionário do ONS admite valor negativo |
-| `participacao_mmgd_pct` | 0 | 100 | aviso | Depende da carga, que pode ser negativa |
+| `participacao_mmgd_pct` | 0 | 100 | aviso | Passa de 100% quando a carga sem MMGD informada pelo ONS é negativa (observado em MS, MT, PI e RO) |
 
-Os limites de clima e carga são **provisórios**: revisar com os valores observados na
-primeira execução real (RN-35, RN-37, RN-38, RN-40).
+Limites mantidos após a execução real de 23/11/2026. Valores observados: temperatura 2,1 a
+40,9 °C; sensação −0,9 a 43,2 °C; umidade 13 a 100%; precipitação 0 a 18 mm; carga média 89 a
+25.620 MW; MMGD 0 a 5.683 MW; participação MMGD 0 a 185% (único aviso, valor da fonte).
 
 ## 3. Política
 - **Erro que falha:** o Parquet não é gravado; o que já estava em `output/dataset/` fica como
@@ -51,7 +52,7 @@ primeira execução real (RN-35, RN-37, RN-38, RN-40).
 - **Relatório:** gravado em todos os casos, inclusive em erro de extração.
 
 ## 4. Como ler o relatório
-1. `status` e `erros`: a execução terminou? Por quê não?
+1. `status` e `erros`: a execução terminou? Por que não?
 2. `resumo_verificacoes`: `falhas_bloqueantes` tem de ser 0.
 3. `verificacoes` com `passed: false`: ler `observed`, `expected` e `detail`.
 4. `extracao.<fonte>.avisos`: dias sem dado, dias sem 48 registros.

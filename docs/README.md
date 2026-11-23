@@ -1,6 +1,6 @@
 # Documentação do projeto
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 Por onde começar:
 
@@ -42,11 +42,8 @@ Fora de `docs/`: `README.md` (instruções de execução exigidas pelo enunciado
 
 ## Convenções
 - Todo documento tem versão e data no topo; mudanças vão para o `CHANGELOG.md`.
-- **Status por evidência:** "Implementado" só com o local no código e o teste; o que depende
-  da execução com as APIs reais está "Pendente".
+- **Status por evidência:** "Implementado" só com o local no código e o teste.
 - Fato de API ou biblioteca traz a fonte e a data da conferência. O que não foi conferido
   está marcado **[a validar]**.
 - Classe de cada dado: **Origem** (veio da API), **Cálculo** (fórmula rastreável),
   **Parâmetro** (arquivo versionado com fonte). Não há dado inferido.
-- A estrutura de pastas e as colunas das tabelas seguem o padrão Yottaflow de documentação,
-  para que o portal de acompanhamento possa ser gerado destes arquivos (ver P-05).

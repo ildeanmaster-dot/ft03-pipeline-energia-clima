@@ -1,13 +1,13 @@
 # Riscos
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 Probabilidade e impacto são avaliação do projeto (Alta, Média, Baixa), não medição.
 
 | ID | Risco | Prob. | Impacto | Resposta | Situação |
 |---|---|---|---|---|---|
-| R-01 | O pipeline falhar na primeira execução com as APIs reais (diferença entre o teste e a API ao vivo) | Média | Alto | Rodar primeiro o teste rápido (1 área, 1 dia); o formato das três respostas já foi conferido com amostras reais | Aberto até P-01 |
-| R-02 | API fora do ar ou lenta perto do prazo | Baixa | Alto | Executar e versionar o `output/` com dias de antecedência; `--skip-extract` reaproveita o bruto já baixado | Aberto |
+| R-01 | O pipeline falhar na primeira execução com as APIs reais (diferença entre o teste e a API ao vivo) | Média | Alto | Rodar primeiro o teste rápido (1 área, 1 dia); o formato das três respostas já foi conferido com amostras reais | Fechado (23/11/2026: execução completa sem erro) |
+| R-02 | API fora do ar ou lenta perto do prazo | Baixa | Alto | Executar e versionar o `output/` com antecedência; `--skip-extract` reaproveita o bruto já baixado | Fechado (`output/` versionado em 23/11/2026) |
 | R-03 | ONS cortar a resposta em silêncio | Alta (confirmado) | Alto | Janela de um mês, conferência dos dias recebidos, divisão automática da janela | Mitigado e testado |
 | R-04 | ONS ou Nager.Date bloquearem por excesso de chamadas (limite não publicado) | Baixa | Médio | Intervalo mínimo de 1 s entre chamadas; retentativa com espera crescente e respeito ao `Retry-After` | Mitigado |
 | R-05 | ONS devolver JSON inválido quando falta um valor (relato de terceiros, não reproduzido) | Baixa | Médio | A extração para com `ExtractionError` e mensagem clara; o reparo automático foi retirado em 23/11/2026 por tratar um caso não reproduzido | Aceito |
@@ -16,6 +16,6 @@ Probabilidade e impacto são avaliação do projeto (Alta, Média, Baixa), não 
 | R-08 | Publicar o enunciado marcado "Internal" | Média | Médio | `insumos/*.pdf` no `.gitignore`; item no checklist de entrega | Mitigado |
 | R-09 | Centróide da UF representar mal o clima onde a carga se concentra | Alta | Baixo para o desafio | Documentado como limitação; coordenada trocável no CSV | Aceito |
 | R-10 | Uso do Open-Meteo ser entendido como comercial | Baixa | Médio | Uso acadêmico; README cita a licença e a restrição | Aceito |
-| R-11 | Repositório grande demais com o `output/` versionado | Baixa | Baixo | Medir o tamanho após a execução; reduzir período ou áreas se preciso (P-06) | Aberto |
-| R-12 | Perder o prazo de 23/11 08h00 | Baixa | Alto | Desenvolvimento adiantado; envio planejado para 22/11 | Aberto |
-| R-13 | `duckdb` 2.0.0 não rodar no processador desta máquina (Intel Core i7-870, sem AVX) | Alta no Linux remoto (confirmado); não testada no Windows | Alto | Testar `import duckdb` no Windows; alternativa validada: `duckdb==1.5.6` (43 testes passando) | Aberto (P-08) |
+| R-11 | Repositório grande demais com o `output/` versionado | Baixa | Baixo | Medir o tamanho após a execução; reduzir período ou áreas se preciso (P-06) | Fechado (P-06: cerca de 1,7 MB) |
+| R-12 | Perder o prazo de 23/11 08h00 | Baixa | Alto | Repositório publicado em 23/11/2026, antes do prazo | Aberto até o envio do link |
+| R-13 | `duckdb` 2.0.0 não rodar no processador da máquina do projeto (sem AVX) | Confirmado só no Linux remoto | Alto | Testar `import duckdb` no Windows; alternativa validada: `duckdb==1.5.6` | Fechado (P-08: 2.0.0 roda no Windows) |

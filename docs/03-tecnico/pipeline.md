@@ -1,6 +1,6 @@
 # Pipeline: módulos e etapas
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 ## 1. Módulos Python (`src/pipeline/`)
 

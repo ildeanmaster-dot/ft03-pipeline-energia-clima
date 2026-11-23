@@ -1,0 +1,2 @@
+# run.sh precisa de fim de linha LF para rodar no bash, inclusive em clone no Windows
+*.sh text eol=lf

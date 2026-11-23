@@ -1,16 +1,17 @@
 # Operação
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 ## 1. Executar
 | Situação | Comando (Git Bash / Linux) | Comando (PowerShell) |
 |---|---|---|
 | Período e áreas do `.env` | `./run.sh` | `.\run.ps1` |
-| Teste rápido | `./run.sh --inicio 2026-10-01 --fim 2026-10-01 --areas PA` | `.\run.ps1 --inicio 2026-10-01 --fim 2026-10-01 --areas PA` |
+| Teste rápido (grava fora do `output/` versionado) | `OUTPUT_DIR=data/teste-rapido/output RAW_DIR=data/teste-rapido/raw ./run.sh --inicio 2026-10-01 --fim 2026-10-01 --areas PA` | `$env:OUTPUT_DIR="data/teste-rapido/output"; $env:RAW_DIR="data/teste-rapido/raw"; .\run.ps1 --inicio 2026-10-01 --fim 2026-10-01 --areas PA; Remove-Item Env:OUTPUT_DIR, Env:RAW_DIR` |
 | Outro período | `./run.sh --inicio 2026-07-01 --fim 2026-07-31` | idem com `.\run.ps1` |
 | Sem chamar as APIs | `./run.sh --skip-extract` | `.\run.ps1 --skip-extract` |
 
-`run.ps1` ainda não foi testado (DT-03). Alternativa garantida: os três comandos do README.
+`run.ps1` testado no Windows em 23/11/2026 (DT-03). Cada execução substitui a partição do mês
+inteiro: rodar só um dia ou algumas áreas em `output/` troca o conteúdo daquele mês (DT-16).
 
 Os argumentos de linha de comando têm prioridade sobre o `.env`.
 
@@ -26,7 +27,8 @@ Os argumentos de linha de comando têm prioridade sobre o `.env`.
 ## 3. Duração esperada
 Dominada pelo intervalo entre chamadas. Com o padrão (cerca de 140 chamadas; 1 s no ONS e
 0,5 s no Open-Meteo): alguns minutos, mais o tempo de resposta das APIs. A transformação e a
-gravação levam segundos. Tempo real **[a medir na primeira execução]**.
+gravação levam segundos. Execução de 23/11/2026: 113 s, 141 chamadas (60 ONS, 80 Open-Meteo,
+1 Nager.Date).
 
 ## 4. Reprocessar
 - **Mesmo período:** rode de novo. As partições do período são apagadas e regravadas; o

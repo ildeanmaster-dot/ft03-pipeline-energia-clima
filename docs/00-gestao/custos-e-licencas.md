@@ -1,6 +1,6 @@
 # Custos e licenças
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 O projeto não usa nenhum serviço pago. Este documento registra as condições de uso dos dados
 e das bibliotecas.
@@ -28,5 +28,6 @@ Licença lida dos metadados de cada pacote instalado, em 12/11/2026.
 | pytest | 9.2.0 | MIT | Testes |
 
 ## 3. Licença do repositório
-Ainda não definida. Um repositório público sem arquivo `LICENSE` não concede direito de uso a
-terceiros. Definir antes de publicar, se desejado **[decisão do responsável]**.
+**MIT** (decisão do responsável em 23/11/2026, D-16), no arquivo `LICENSE` da raiz. Vale para o
+código e a documentação. Os dados em `output/` derivam das fontes e seguem as licenças delas
+(ONS: CC-BY; Open-Meteo: CC BY 4.0, uso não comercial no plano gratuito), com citação obrigatória.

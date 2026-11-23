@@ -1,6 +1,6 @@
 # Termo de abertura do projeto
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 ## 1. Identificação
 | Item | Valor |
@@ -70,8 +70,8 @@ indisponibilidade de uma API perto do prazo; resposta do ONS cortada em silênci
 | Requisitos e pergunta de negócio | 12/11 | Concluído |
 | APIs escolhidas e validadas em chamada real | 13/11 | Concluído em 12/11 |
 | Código, SQL, qualidade, testes e documentação | 14 a 21/11 | Concluído em 12/11 |
-| Primeira execução com as APIs reais | 17/11 | Pendente |
-| Repositório público com `output/` | 22/11 | Pendente |
+| Primeira execução com as APIs reais | 17/11 | Concluído em 23/11 |
+| Repositório público com `output/` | 22/11 | Concluído em 23/11 |
 | Envio do link | 23/11 antes das 08h00 | Pendente |
 
 ## 10. Partes interessadas
@@ -79,8 +79,3 @@ indisponibilidade de uma API perto do prazo; resposta do ONS cortada em silênci
 |---|---|
 | Ildean Freitas | Responsável pela entrega |
 | Avaliadores do desafio FT03 | Avaliam o repositório [nomes não informados] |
-
-## 11. Aprovação
-| Nome | Data | Assinatura |
-|---|---|---|
-| | | |

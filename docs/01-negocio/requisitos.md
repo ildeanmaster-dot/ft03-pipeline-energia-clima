@@ -1,6 +1,6 @@
 # Requisitos
 
-Versão 1.0 · 12/11/2026
+Versão 1.1 · 23/11/2026
 
 Fonte: enunciado `FT03_Engenharia_PRJ01_Python.pdf`, seções 2 a 5. Prioridade "Obrig." = exigido
 pelo enunciado. Status por evidência: **Implementado** = código e teste existem;
@@ -9,7 +9,7 @@ pelo enunciado. Status por evidência: **Implementado** = código e teste existe
 ## 1. Requisitos funcionais
 | ID | Requisito | Seção | Prior. | Status | Evidência |
 |---|---|---|---|---|---|
-| RF-01 | Consumir no mínimo 2 APIs públicas de domínios distintos | 2.1 | Obrig. | Implementado | 3 APIs (energia, clima, calendário) em `src/pipeline/extract.py`; Execução real em 23/11/2026: 20 áreas ONS e Open-Meteo, feriados Nager.Date |
+| RF-01 | Consumir no mínimo 2 APIs públicas de domínios distintos | 2.1 | Obrig. | Implementado | 3 APIs (energia, clima, calendário) em `src/pipeline/extract.py`; execução real em 23/11/2026: 20 áreas ONS e Open-Meteo, feriados Nager.Date |
 | RF-02 | Controle de taxa (rate limiting) | 2.1 | Obrig. | Implementado | `RateLimiter` em `http_client.py`; `test_rate_limiter_espera_o_intervalo_minimo` |
 | RF-03 | Retentativas com tratamento de erros | 2.1 | Obrig. | Implementado | `build_retry` e `HttpClient.get_text`; testes de 429, 503, 500, 404, timeout e conexão |
 | RF-04 | Desaninhamento de coleções complexas via SQL | 2.2 | Obrig. | Implementado | 4 `UNNEST` em `sql/01_staging.sql`; 3 testes de UNNEST |
@@ -35,7 +35,7 @@ pelo enunciado. Status por evidência: **Implementado** = código e teste existe
 | RNF-04 | Repositório Git com estrutura modular em `src/`, no GitHub | 3 | Obrig. | Implementado | https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima (23/11/2026) |
 | RNF-05 | README com instruções de execução, variáveis de ambiente e documentação das APIs | 3 | Obrig. | Implementado | `README.md`, seções 1 e 3 |
 | RNF-06 | `requirements.txt` para reprodução exata | 3 | Obrig. | Implementado | Versões fixadas com `==` |
-| RNF-07 | `run.sh` ou comando único ponta a ponta | 3 | Obrig. | Implementado | `run.sh` testado em Linux; no Windows, `python -m pipeline.main` executado em 23/11/2026 e `run.ps1` testado em 23/11/2026 (DT-03) |
+| RNF-07 | `run.sh` ou comando único ponta a ponta | 3 | Obrig. | Implementado | `run.sh` (Git Bash) e `run.ps1` (PowerShell) testados no Windows em 23/11/2026 (DT-03, DT-16); `python -m pipeline.main` executado com as APIs reais |
 | RNF-08 | Dataset em `output/` (.parquet) | 3 | Obrig. | Implementado | 3 partições, 44.160 linhas (23/11/2026) |
 | RNF-09 | Relatório de qualidade em JSON ou CSV entregue | 3 | Obrig. | Implementado | `output/reports/quality_report.json` |
 | RNF-10 | Repositório público | 5 | Obrig. | Implementado | https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima |
