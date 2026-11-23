@@ -75,7 +75,7 @@ parada depois de `run_transformations` e consulte pelo Debug Console:
 | Acrescentar uma API | Função `extract_*` em `extract.py` + entrada em `run_extraction` (`main.py`) + SQL | `fontes-de-dados.md`; teste |
 | Ajustar retentativa ou taxa | `.env` (valores) ou `build_retry` (`http_client.py`) | `tests/test_http_client.py` |
 
-## 7. Git (ainda não iniciado)
+## 7. Git (iniciado em 23/11/2026; remoto: https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima)
 | # | Ação | Resultado esperado |
 |---|---|---|
 | 1 | `git init -b main` | Pasta `.git` criada |

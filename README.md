@@ -233,4 +233,5 @@ ONS admite valor negativo em `val_cargaglobal`.
 - `temperature_2m` é o valor no início da hora; a carga é a média da hora.
 - Feriados municipais não entram (a API traz nacionais e estaduais).
 - ONS e Nager.Date não publicam limite de taxa; o intervalo adotado é uma escolha conservadora.
+- Em algumas horas a carga MMGD informada pelo ONS é maior que a carga global da área, e a participação passa de 100%. Na execução de 23/11/2026 (01/08 a 31/10/2026) foram 376 horas: MS 238, MT 109, PI 25 e RO 4, com máximo de 185%. O valor é mantido como veio da fonte e a regra de intervalo registra aviso.
 - Períodos muito recentes podem vir sem clima no arquivo histórico do Open-Meteo; nesse caso as horas ficam com `clima_disponivel = false` e a cobertura aparece como aviso no relatório.

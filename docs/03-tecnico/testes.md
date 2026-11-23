@@ -4,7 +4,7 @@ Versão 1.0 · 12/11/2026
 
 43 testes com pytest. Nenhum depende das APIs ao vivo: usam dados montados em
 `tests/conftest.py`, amostras reais em `tests/fixtures/` e servidores HTTP locais.
-Execuções em 12/11/2026, todas com `43 passed`: Python 3.13 + duckdb 2.0.0 (Linux, ambiente de construção) e Python 3.12 + duckdb 1.5.6 (Linux remoto da máquina do projeto). No Windows ainda não rodaram.
+Execuções em 12/11/2026, todas com `43 passed`: Python 3.13 + duckdb 2.0.0 (Linux, ambiente de construção) e Python 3.12 + duckdb 1.5.6 (Linux remoto da máquina do projeto). Em 23/11/2026, no Windows (Python 3.12 + duckdb 2.0.0): `43 passed in 24.61s`.
 
 ## 1. Como rodar
 | Onde | Comando |

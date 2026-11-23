@@ -49,8 +49,7 @@ No Git Bash/Linux: `./run.sh`. No PowerShell: `.\run.ps1`.
 - **Python 3.11 ou superior**: o `duckdb` 2.0.0 não tem pacote para Python 3.10 (PyPI, 12/11/2026).
 - **Processador desta máquina (Intel Core i7-870, sem AVX):** o `duckdb` 2.0.0 encerrou com "Illegal
   instruction" no Linux da sessão remota; o 1.5.6 funcionou e os 43 testes passaram (Python 3.12).
-  No Windows ainda não foi testado. Se `import duckdb` falhar, usar `duckdb==1.5.6` (ver DT-15 e P-08).
-- A pasta de configuração do VS Code foi gravada como `_vscode`: renomear para `.vscode`.
+  No Windows nativo (23/11/2026, Python 3.12) o 2.0.0 importa e roda: o problema é só do Linux remoto.
 - A API do ONS **corta a resposta em silêncio** (HTTP 200) acima de ~2,4 MB: pedir no máximo um
   mês por área e conferir os dias recebidos (`fetch_ons_window` já faz isso).
 - DuckDB: `UNNEST` de lista vazia ou nula gera zero linhas (usar `LEFT JOIN LATERAL`);
@@ -59,6 +58,8 @@ No Git Bash/Linux: `./run.sh`. No PowerShell: `.\run.ps1`.
 - O dia de referência do ONS termina às 03:00 UTC do dia seguinte: o clima é extraído com um dia a mais.
 - Open-Meteo devolve a coordenada do ponto de grade, não a pedida: a área vem do `meta` do arquivo bruto.
 
-## Pendência que bloqueia a entrega
-O pipeline **ainda não rodou com as APIs reais** (ver `estado-do-projeto.md`). Falta: executar,
-conferir `output/` e o relatório, versionar o `output/` e publicar o repositório.
+## Situação (23/11/2026)
+Pipeline executado com as APIs reais no Windows (01/08 a 31/10/2026, 20 áreas): 44.160 linhas,
+3 partições, 41 de 42 verificações aprovadas e 1 aviso (participação MMGD acima de 100% em
+MS, MT, PI e RO). Repositório público: https://github.com/ildeanmaster-dot/ft03-pipeline-energia-clima
+Falta: enviar o link pelo formulário e validar o README num clone limpo.

@@ -1,5 +1,11 @@
 # Histórico de mudanças
 
+## 0.3.0 — 23/11/2026
+- Primeira execução com as APIs reais, no Windows (Python 3.12, duckdb 2.0.0): 01/08 a 31/10/2026, 20 áreas, 44.160 linhas, 3 partições, 113 s.
+- Relatório: `success_with_warnings`, 41 de 42 verificações aprovadas; aviso em `participacao_mmgd_pct` (376 horas acima de 100% em MS, MT, PI e RO).
+- `output/` versionado; repositório público criado no GitHub.
+- `duckdb` 2.0.0 confirmado no Windows desta máquina (P-08 e DT-15 encerrados); `.vscode` renomeada (P-09).
+
 ## 0.2.1 — 12/11/2026
 - Projeto gravado em `D:\Portifolio\DesafioPythonFT03Projeto1` (62 arquivos, conferidos por md5).
 - Configuração do VS Code gravada em `_vscode` (renomear para `.vscode`).

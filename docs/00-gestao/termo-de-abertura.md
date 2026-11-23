@@ -61,7 +61,7 @@ Critérios de avaliação do enunciado: engenharia de software, qualidade técni
 - O PDF do enunciado tem a marca "Internal" e não deve ser publicado.
 
 ## 8. Riscos principais
-Ver `docs/00-gestao/riscos.md`. Os três maiores: o pipeline ainda não rodou com as APIs reais;
+Ver `docs/00-gestao/riscos.md`. Os três maiores: o pipeline ainda não rodou com as APIs reais (resolvido em 23/11/2026);
 indisponibilidade de uma API perto do prazo; resposta do ONS cortada em silêncio.
 
 ## 9. Marcos
